@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.rkshakyaprojects.banking.controller;
 
 import com.rkshakyaprojects.banking.model.Customer;
@@ -13,7 +12,6 @@ import com.rkshakyaprojects.banking.model.CustomerDao;
 import com.rkshakyaprojects.banking.model.CustomerStreet;
 import com.rkshakyaprojects.banking.model.CustomerStreetDao;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -68,8 +66,8 @@ public class updateCustomer extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        String custid=request.getParameter("custid");
+
+        String custid = request.getParameter("custid");
         String firstname = request.getParameter("firstname");
         String middlename = request.getParameter("middlename");
         String lastname = request.getParameter("lastname");
@@ -83,24 +81,24 @@ public class updateCustomer extends HttpServlet {
         String street = request.getParameter("street");
         String streetnumber = request.getParameter("streetnumber");
         String apartmentnumber = request.getParameter("apartmentnumber");
-        String customerstatus=request.getParameter("customerstatus");
+        String customerstatus = request.getParameter("customerstatus");
         int isactive;
-        if("active".equals(customerstatus)){
-            isactive=1;
-        }else{
-            isactive=0;
+        if ("active".equals(customerstatus)) {
+            isactive = 1;
+        } else {
+            isactive = 0;
         }
-        
+
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
         CustomerDao cdao = (CustomerDao) ctx.getBean("cdao");
-        CustomerAddressDao cadao=(CustomerAddressDao)ctx.getBean("cadao");
+        CustomerAddressDao cadao = (CustomerAddressDao) ctx.getBean("cadao");
         CustomerStreetDao csdao = (CustomerStreetDao) ctx.getBean("csdao");
-        
-        Customer cust=cdao.getSpecificCustomer(Integer.parseInt(custid));
-        int addressid=cust.getAddressid();
-        CustomerAddress custAddress=cadao.getSpecificCustomerAddress(addressid);
-        int streetid=custAddress.getStreetid();
-        
+
+        Customer cust = cdao.getSpecificCustomer(Integer.parseInt(custid));
+        int addressid = cust.getAddress();
+        CustomerAddress custAddress = cadao.getSpecificCustomerAddress(addressid);
+        int streetid = custAddress.getStreetid();
+
         CustomerStreet cs = new CustomerStreet();
         cs.setStreetid(streetid);
         cs.setStreet(street);
@@ -116,22 +114,21 @@ public class updateCustomer extends HttpServlet {
         status = cadao.updateCustomerAddress(ca);
 
         Customer c = new Customer();
-        c.setCustID(Integer.parseInt(custid));
-        c.setFirstname(firstname);
-        c.setMiddlename(middlename);
-        c.setLastname(lastname);
-        c.setHomecontact(homecontact);
-        c.setMobilecontact(mobilecontact);
-        c.setDateofbirth(dateofbirth);
-        c.setDateofjoin(dateofjoin);
-        c.setIsactive(isactive);
+        c.setId(Integer.parseInt(custid));
+        c.setFirstName(firstname);
+        c.setMiddleName(middlename);
+        c.setLastName(lastname);
+        c.setPhone(homecontact);
+        c.setDateOfBirth(dateofbirth);
+        c.setDateOfJoin(dateofjoin);
+        c.setIsActive(isactive);
         status = cdao.updateCustomer(c);
-        if(status>0){
+        if (status > 0) {
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");
-        }else{
+        } else {
             response.sendRedirect("error.jsp");
         }
-        
+
     }
 
     /**

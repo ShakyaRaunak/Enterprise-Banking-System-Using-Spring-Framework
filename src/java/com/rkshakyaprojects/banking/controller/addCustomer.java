@@ -109,15 +109,14 @@ public class addCustomer extends HttpServlet {
 
         Customer c = new Customer();
         CustomerAddress custaddr = cadao.getCustomerAddressID();
-        c.setAddressid(custaddr.getAddressid());
-        c.setFirstname(firstname);
-        c.setMiddlename(middlename);
-        c.setLastname(lastname);
-        c.setHomecontact(homecontact);
-        c.setMobilecontact(mobilecontact);
-        c.setDateofbirth(dateofbirth);
-        c.setDateofjoin(dateofjoin);
-        c.setIsactive(isactive);
+        c.setAddress(custaddr.getAddressid());
+        c.setFirstName(firstname);
+        c.setMiddleName(middlename);
+        c.setLastName(lastname);
+        c.setPhone(homecontact);
+        c.setDateOfBirth(dateofbirth);
+        c.setDateOfJoin(dateofjoin);
+        c.setIsActive(isactive);
         status = cdao.saveCustomer(c);
         if(status>0){
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");

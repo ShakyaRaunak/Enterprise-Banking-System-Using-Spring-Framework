@@ -39,15 +39,14 @@ public class CustomerDao {
                         List<Customer> list = new ArrayList<>();
                         while (rs.next()) {
                             Customer c = new Customer();
-                            c.setCustID(rs.getInt("customer_id"));
-                            c.setFirstname(rs.getString("customer_firstname"));
-                            c.setMiddlename(rs.getString("customer_middlename"));
-                            c.setLastname(rs.getString("customer_lastname"));
-                            c.setHomecontact(rs.getString("customer_homecontact"));
-                            c.setMobilecontact(rs.getString("customer_mobilecontact"));
-                            c.setDateofbirth(rs.getString("customer_dateofbirth"));
-                            c.setDateofjoin(rs.getString("customer_dateofjoin"));
-                            c.setAddressid(rs.getInt("customer_addressid"));
+                            c.setId(rs.getInt("customer_id"));
+                            c.setFirstName(rs.getString("customer_firstname"));
+                            c.setMiddleName(rs.getString("customer_middlename"));
+                            c.setLastName(rs.getString("customer_lastname"));
+                            c.setPhone(rs.getString("customer_homecontact"));
+                            c.setDateOfBirth(rs.getString("customer_dateofbirth"));
+                            c.setDateOfJoin(rs.getString("customer_dateofjoin"));
+                            c.setAddress(rs.getInt("customer_addressid"));
                             list.add(c);
                         }
                         return list;
@@ -63,16 +62,15 @@ public class CustomerDao {
                     public Customer extractData(ResultSet rs) throws SQLException, DataAccessException {
                         Customer c = new Customer();
                         while (rs.next()) {
-                            c.setCustID(rs.getInt("customer_id"));
-                            c.setFirstname(rs.getString("customer_firstname"));
-                            c.setMiddlename(rs.getString("customer_middlename"));
-                            c.setLastname(rs.getString("customer_lastname"));
-                            c.setHomecontact(rs.getString("customer_homecontact"));
-                            c.setMobilecontact(rs.getString("customer_mobilecontact"));
-                            c.setDateofbirth(rs.getString("customer_dateofbirth"));
-                            c.setDateofjoin(rs.getString("customer_dateofjoin"));
-                            c.setAddressid(rs.getInt("customer_addressid"));
-                            c.setIsactive(rs.getInt("customer_isactive"));
+                            c.setId(rs.getInt("customer_id"));
+                            c.setFirstName(rs.getString("customer_firstname"));
+                            c.setMiddleName(rs.getString("customer_middlename"));
+                            c.setLastName(rs.getString("customer_lastname"));
+                            c.setPhone(rs.getString("customer_homecontact"));
+                            c.setDateOfBirth(rs.getString("customer_dateofbirth"));
+                            c.setDateOfJoin(rs.getString("customer_dateofjoin"));
+                            c.setAddress(rs.getInt("customer_addressid"));
+                            c.setIsActive(rs.getInt("customer_isactive"));
                         }
                         return c;
                     }
@@ -89,15 +87,14 @@ public class CustomerDao {
                         List<Customer> list = new ArrayList<>();
                         while (rs.next()) {
                             Customer c = new Customer();
-                            c.setCustID(rs.getInt("customer_id"));
-                            c.setFirstname(rs.getString("customer_firstname"));
-                            c.setMiddlename(rs.getString("customer_middlename"));
-                            c.setLastname(rs.getString("customer_lastname"));
-                            c.setHomecontact(rs.getString("customer_homecontact"));
-                            c.setMobilecontact(rs.getString("customer_mobilecontact"));
-                            c.setDateofbirth(rs.getString("customer_dateofbirth"));
-                            c.setDateofjoin(rs.getString("customer_dateofjoin"));
-                            c.setAddressid(rs.getInt("customer_addressid"));
+                            c.setId(rs.getInt("customer_id"));
+                            c.setFirstName(rs.getString("customer_firstname"));
+                            c.setMiddleName(rs.getString("customer_middlename"));
+                            c.setLastName(rs.getString("customer_lastname"));
+                            c.setPhone(rs.getString("customer_homecontact"));
+                            c.setDateOfBirth(rs.getString("customer_dateofbirth"));
+                            c.setDateOfJoin(rs.getString("customer_dateofjoin"));
+                            c.setAddress(rs.getInt("customer_addressid"));
                             list.add(c);
                         }
                         return list;
@@ -110,10 +107,10 @@ public class CustomerDao {
         //"', '" + c.getAccountid() + "', '" + c.getIsactive() + "', '" + c.getLoginname()
         //+ "', '" + c.getLoginpass() + 
         String query = "INSERT INTO customer_table (customer_firstname, customer_middlename, customer_lastname, "
-                + "customer_homecontact, customer_mobilecontact, customer_dateofbirth, customer_dateofjoin, customer_addressid, "
-                + "customer_isactive) VALUES('" + c.getFirstname() + "', '" + c.getMiddlename() + "', '" + c.getLastname() + "', '"
-                + c.getHomecontact() + "', '" + c.getMobilecontact() + "', '" + c.getDateofbirth() + "', '" + c.getDateofjoin()
-                + "', '" + c.getAddressid() + "', '" + c.getIsactive() + "')";
+                + "customer_phone, customer_dateofbirth, customer_dateofjoin, customer_address, "
+                + "customer_isactive) VALUES('" + c.getFirstName() + "', '" + c.getMiddleName() + "', '" + c.getLastName() + "', '"
+                + c.getPhone() + "', '" + "', '" + c.getDateOfBirth() + "', '" + c.getDateOfJoin()
+                + "', '" + c.getAddress() + "', '" + c.getIsActive() + "')";
 
         /*
          query = "INSERT INTO account (balance, account_createdby, account_createddate, lastaccess_date, account_isactive) "
@@ -124,22 +121,22 @@ public class CustomerDao {
     }
 
     public int updateCustomer(Customer c) {
-        String query = "UPDATE customer_table SET customer_firstname='" + c.getFirstname() + "', customer_middlename='"
-                + c.getMiddlename() + "', customer_lastname='" + c.getLastname() + "', customer_homecontact='"
-                + c.getHomecontact() + "', customer_mobilecontact='" + c.getMobilecontact() + "', customer_dateofbirth='"
-                + c.getDateofbirth() + "', customer_dateofjoin='" + c.getDateofjoin() + "', customer_isactive='"
-                + c.getIsactive() + "' WHERE customer_id='" + c.getCustID() + "'";
+        String query = "UPDATE customer_table SET customer_firstname='" + c.getFirstName() + "', customer_middlename='"
+                + c.getMiddleName() + "', customer_lastname='" + c.getLastName() + "', customer_homecontact='"
+                + c.getPhone()+ "', customer_mobilecontact='" + "', customer_dateofbirth='"
+                + c.getDateOfBirth() + "', customer_dateofjoin='" + c.getDateOfJoin() + "', customer_isactive='"
+                + c.getIsActive() + "' WHERE customer_id='" + c.getId() + "'";
 
         return jdbcTemplate.update(query);
     }
 
     public int deleteCustomer(Customer c) {
-        String query = "UPDATE customer_table SET customer_isactive='0' WHERE customer_id='" + c.getCustID() + "'";
+        String query = "UPDATE customer_table SET customer_isactive='0' WHERE customer_id='" + c.getId() + "'";
         return jdbcTemplate.update(query);
     }
-    
+
     public int restoreCustomer(Customer c) {
-        String query = "UPDATE customer_table SET customer_isactive='1' WHERE customer_id='" + c.getCustID() + "'";
+        String query = "UPDATE customer_table SET customer_isactive='1' WHERE customer_id='" + c.getId() + "'";
         return jdbcTemplate.update(query);
     }
 }

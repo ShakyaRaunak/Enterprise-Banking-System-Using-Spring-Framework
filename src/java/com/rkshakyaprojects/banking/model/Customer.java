@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.rkshakyaprojects.banking.model;
 
 /**
@@ -11,122 +5,122 @@ package com.rkshakyaprojects.banking.model;
  * @author Raunak Shakya
  */
 public class Customer {
-    private int custID;
-    private String firstname;
-    private String middlename;
-    private String lastname;
-    private String homecontact;
-    private String mobilecontact;
-    private String dateofbirth;
-    private String dateofjoin;
-    private int isactive;
-    private String loginname;
-    private String loginpass;
-    private int addressid;
-    private int accountid;
 
-    public int getCustID() {
-        return custID;
+    private int id;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private int address;
+    private int account;
+    private String dateOfBirth;
+    private String dateOfJoin;
+    private String username;
+    private String password;
+    private int isActive;
+
+    public int getId() {
+        return this.id;
     }
 
-    public void setCustID(int custID) {
-        this.custID = custID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    
-    public int getAccountid() {
-        return accountid;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setAccountid(int accountid) {
-        this.accountid = accountid;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public int getAddressid() {
-        return addressid;
+    public String getMiddleName() {
+        return this.middleName;
     }
 
-    public void setAddressid(int addressid) {
-        this.addressid = addressid;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getLoginname() {
-        return loginname;
+    public String getLastName() {
+        return this.lastName;
     }
 
-    public void setLoginname(String loginname) {
-        this.loginname = loginname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getLoginpass() {
-        return loginpass;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setLoginpass(String loginpass) {
-        this.loginpass = loginpass;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getPhone() {
+        return this.phone;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public int getAddress() {
+        return this.address;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+    public void setAddress(int address) {
+        this.address = address;
     }
 
-    public String getLastname() {
-        return lastname;
+    public int getAccount() {
+        return this.account;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setAccount(int account) {
+        this.account = account;
     }
 
-    public String getHomecontact() {
-        return homecontact;
+    public String getDateOfBirth() {
+        return this.dateOfBirth;
     }
 
-    public void setHomecontact(String homecontact) {
-        this.homecontact = homecontact;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getMobilecontact() {
-        return mobilecontact;
+    public String getDateOfJoin() {
+        return this.dateOfJoin;
     }
 
-    public void setMobilecontact(String mobilecontact) {
-        this.mobilecontact = mobilecontact;
+    public void setDateOfJoin(String dateOfJoin) {
+        this.dateOfJoin = dateOfJoin;
     }
 
-    public String getDateofbirth() {
-        return dateofbirth;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setDateofbirth(String dateofbirth) {
-        this.dateofbirth = dateofbirth;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getDateofjoin() {
-        return dateofjoin;
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setDateofjoin(String dateofjoin) {
-        this.dateofjoin = dateofjoin;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public int getIsactive() {
-        return isactive;
+    public int getIsActive() {
+        return this.isActive;
     }
 
-    public void setIsactive(int isactive) {
-        this.isactive = isactive;
-    }    
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
 }
