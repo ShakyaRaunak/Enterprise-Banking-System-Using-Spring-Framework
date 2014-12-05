@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package controller.com.rkshakyaprojects.banking;
+package com.rkshakyaprojects.banking.controller;
 
-import model.com.rkshakyaprojects.banking.Customer;
-import model.com.rkshakyaprojects.banking.CustomerAddress;
-import model.com.rkshakyaprojects.banking.CustomerAddressDao;
-import model.com.rkshakyaprojects.banking.CustomerDao;
-import model.com.rkshakyaprojects.banking.CustomerStreet;
-import model.com.rkshakyaprojects.banking.CustomerStreetDao;
+import com.rkshakyaprojects.banking.model.Customer;
+import com.rkshakyaprojects.banking.model.CustomerAddress;
+import com.rkshakyaprojects.banking.model.CustomerAddressDao;
+import com.rkshakyaprojects.banking.model.CustomerDao;
+import com.rkshakyaprojects.banking.model.CustomerStreet;
+import com.rkshakyaprojects.banking.model.CustomerStreetDao;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

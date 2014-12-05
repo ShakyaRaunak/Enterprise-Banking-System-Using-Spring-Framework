@@ -9,7 +9,7 @@ import com.rkshakyaprojects.banking.model.Customer;
 import com.rkshakyaprojects.banking.model.CustomerAddress;
 import com.rkshakyaprojects.banking.model.CustomerAddressDao;
 import com.rkshakyaprojects.banking.model.CustomerDao;
-import com.rkshakyaprojects.banking.model.CustmerStreet;
+import com.rkshakyaprojects.banking.model.CustomerStreet;
 import com.rkshakyaprojects.banking.model.CustomerStreetDao;
 import java.io.IOException;
 import javax.servlet.ServletException;

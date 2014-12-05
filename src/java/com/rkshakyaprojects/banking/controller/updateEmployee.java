@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.com.rkshakyaprojects.banking;
+package com.rkshakyaprojects.banking.controller;
 
-import model.com.rkshakyaprojects.banking.Employee;
-import model.com.rkshakyaprojects.banking.EmployeeDao;
+import com.rkshakyaprojects.banking.model.Employee;
+import com.rkshakyaprojects.banking.model.EmployeeDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
