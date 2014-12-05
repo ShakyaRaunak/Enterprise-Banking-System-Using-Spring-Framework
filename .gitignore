@@ -1,2 +1,4 @@
-Libraries/
-Test Libraries/
+build/
+lib/
+test/
+build.xml
