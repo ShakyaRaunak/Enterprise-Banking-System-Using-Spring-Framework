@@ -6,7 +6,7 @@
 package com.rkshakyaprojects.banking.controller;
 
 import com.rkshakyaprojects.banking.model.LoginBean;
-import model.DBConnection;
+import com.rkshakyaprojects.banking.model.DBConnection;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;

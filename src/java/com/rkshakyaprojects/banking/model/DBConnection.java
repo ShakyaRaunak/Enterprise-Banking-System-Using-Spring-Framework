@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package model;
+package com.rkshakyaprojects.banking.model;
 
-import static model.ConnectionParameter.CONNECTION_URL;
-import static model.ConnectionParameter.DRIVER;
-import static model.ConnectionParameter.PASSWORD;
-import static model.ConnectionParameter.USERNAME;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,8 +14,8 @@ public class DBConnection {
 
     public boolean connect() throws SQLException, ClassNotFoundException {
         try {
-            Class.forName(DRIVER);
-            conn = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD);
+            Class.forName(ConnectionParameter.DRIVER);
+            conn = DriverManager.getConnection(ConnectionParameter.CONNECTION_URL, ConnectionParameter.USERNAME, ConnectionParameter.PASSWORD);
             return true;
         } catch (ClassNotFoundException | SQLException e) {
             return false;
@@ -33,8 +24,8 @@ public class DBConnection {
 
     public Connection getConnection() throws SQLException, ClassNotFoundException {
         try {
-            Class.forName(DRIVER);
-            conn = DriverManager.getConnection(CONNECTION_URL, USERNAME, PASSWORD);
+            Class.forName(ConnectionParameter.DRIVER);
+            conn = DriverManager.getConnection(ConnectionParameter.CONNECTION_URL, ConnectionParameter.USERNAME, ConnectionParameter.PASSWORD);
             return conn;
         } catch (ClassNotFoundException | SQLException e) {
             return conn;
