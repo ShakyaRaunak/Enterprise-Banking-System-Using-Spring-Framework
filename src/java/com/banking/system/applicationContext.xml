@@ -28,5 +28,4 @@
     <bean id="cadao" class="com.bsp.bankingsystemproject.CustomerAddressDao">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
-    
 </beans>

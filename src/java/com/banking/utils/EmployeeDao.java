@@ -1,5 +1,6 @@
-package com.rkshakyaprojects.banking.model;
+package com.banking.utils;
 
+import com.banking.model.Employee;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class EmployeeDao {
                         List<Employee> list = new ArrayList<>();
                         while (rs.next()) {
                             Employee e = new Employee();
-                            e.setEmpID(rs.getInt("employee_id"));
+                            e.setId(rs.getInt("employee_id"));
                             e.setFirstname(rs.getString("employee_firstname"));
                             e.setMiddlename(rs.getString("employee_middlename"));
                             e.setLastname(rs.getString("employee_lastname"));
@@ -60,7 +61,7 @@ public class EmployeeDao {
                     public Employee extractData(ResultSet rs) throws SQLException, DataAccessException {
                         Employee e = new Employee();
                         while (rs.next()) {
-                            e.setEmpID(rs.getInt("employee_id"));
+                            e.setId(rs.getInt("employee_id"));
                             e.setFirstname(rs.getString("employee_firstname"));
                             e.setMiddlename(rs.getString("employee_middlename"));
                             e.setLastname(rs.getString("employee_lastname"));
@@ -89,7 +90,7 @@ public class EmployeeDao {
                         List<Employee> list = new ArrayList<>();
                         while (rs.next()) {
                             Employee e = new Employee();
-                            e.setEmpID(rs.getInt("employee_id"));
+                            e.setId(rs.getInt("employee_id"));
                             e.setFirstname(rs.getString("employee_firstname"));
                             e.setMiddlename(rs.getString("employee_middlename"));
                             e.setLastname(rs.getString("employee_lastname"));
@@ -124,17 +125,17 @@ public class EmployeeDao {
                 + "', employee_dateofjoin='" + e.getDateofjoin() + "', employee_department='" + e.getDepartment()
                 + "', employee_post='" + e.getPost() + "', employee_isadmin='" + e.getIsadmin()
                 + "', employee_isactive='" + e.getIsactive()
-                + "' where employee_id='" + e.getEmpID() + "'";
+                + "' where employee_id='" + e.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
     public int deleteEmployee(Employee e) {
-        String query = "UPDATE employee_table SET employee_isactive='0' WHERE employee_id='" + e.getEmpID() + "'";
+        String query = "UPDATE employee_table SET employee_isactive='0' WHERE employee_id='" + e.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
     public int restoreEmployee(Employee e) {
-        String query = "UPDATE employee_table SET employee_isactive='1' WHERE employee_id='" + e.getEmpID() + "'";
+        String query = "UPDATE employee_table SET employee_isactive='1' WHERE employee_id='" + e.getId() + "'";
         return jdbcTemplate.update(query);
     }
 }

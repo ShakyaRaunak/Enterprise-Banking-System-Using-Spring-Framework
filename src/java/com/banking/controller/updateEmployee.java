@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.rkshakyaprojects.banking.controller;
+package com.banking.controller;
 
-import com.rkshakyaprojects.banking.model.Customer;
-import com.rkshakyaprojects.banking.model.CustomerAddress;
-import com.rkshakyaprojects.banking.model.CustomerAddressDao;
-import com.rkshakyaprojects.banking.model.CustomerDao;
-import com.rkshakyaprojects.banking.model.CustomerStreet;
-import com.rkshakyaprojects.banking.model.CustomerStreetDao;
+import com.banking.model.Employee;
+import com.banking.utils.EmployeeDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Raunak Shakya
  */
-public class addCustomer extends HttpServlet {
+public class updateEmployee extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -67,6 +58,7 @@ public class addCustomer extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
+        String empid = request.getParameter("empid");
         String firstname = request.getParameter("firstname");
         String middlename = request.getParameter("middlename");
         String lastname = request.getParameter("lastname");
@@ -74,56 +66,37 @@ public class addCustomer extends HttpServlet {
         String mobilecontact = request.getParameter("mobilecontact");
         String dateofbirth = request.getParameter("dateofbirth");
         String dateofjoin = request.getParameter("dateofjoin");
-        String zipcode = request.getParameter("zipcode");
-        String city = request.getParameter("city");
-        String state = request.getParameter("state");
-        String street = request.getParameter("street");
-        String streetnumber = request.getParameter("streetnumber");
-        String apartmentnumber = request.getParameter("apartmentnumber");
-        String customerstatus=request.getParameter("customerstatus");
-        int isactive;
-        if("active".equals(customerstatus)){
-            isactive=1;
-        }else{
-            isactive=0;
-        }
-        
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-        CustomerDao cdao = (CustomerDao) ctx.getBean("cdao");
-        CustomerAddressDao cadao=(CustomerAddressDao)ctx.getBean("cadao");
-        CustomerStreetDao csdao = (CustomerStreetDao) ctx.getBean("csdao");
+        String address = request.getParameter("address");
+        String department = request.getParameter("department");
+        String post = request.getParameter("post");
+        String employeestatus = request.getParameter("employeestatus");
+        String checkadmin = request.getParameter("isadmin");
+        int isactive = ("active".equals(employeestatus)) ? 1 : 0;
+        int isadmin = ("active".equals(checkadmin)) ? 1 : 0;
 
-        CustomerStreet cs = new CustomerStreet();
-        cs.setStreet(street);
-        cs.setStreetnumber(streetnumber);
-        cs.setApartmentnumber(apartmentnumber);
-        int status = csdao.saveCustomerStreet(cs);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
+        EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("edao");
 
-        CustomerStreet custstrt = csdao.getCustomerStreetID();
-        CustomerAddress ca = new CustomerAddress();
-        ca.setStreetid(custstrt.getStreetid());
-        ca.setZipcode(zipcode);
-        ca.setCity(city);
-        ca.setState(state);
-        status = cadao.saveCustomerAddress(ca);
-
-        Customer c = new Customer();
-        CustomerAddress custaddr = cadao.getCustomerAddressID();
-        c.setAddress(custaddr.getAddressid());
-        c.setFirstName(firstname);
-        c.setMiddleName(middlename);
-        c.setLastName(lastname);
-        c.setPhone(homecontact);
-        c.setDateOfBirth(dateofbirth);
-        c.setDateOfJoin(dateofjoin);
-        c.setIsActive(isactive);
-        status = cdao.saveCustomer(c);
-        if(status>0){
-            response.sendRedirect("CustomerPages/ViewCustomer.jsp");
-        }else{
+        Employee employee = new Employee();
+        employee.setId(Integer.parseInt(empid));
+        employee.setFirstname(firstname);
+        employee.setMiddlename(middlename);
+        employee.setLastname(lastname);
+        employee.setHomecontact(homecontact);
+        employee.setMobilecontact(mobilecontact);
+        employee.setDateofbirth(dateofbirth);
+        employee.setDateofjoin(dateofjoin);
+        employee.setDepartment(department);
+        employee.setPost(post);
+        employee.setAddress(address);
+        employee.setIsactive(isactive);
+        employee.setIsadmin(isadmin);
+        int status = employeeDao.updateEmployee(employee);
+        if (status > 0) {
+            response.sendRedirect("EmployeePages/ViewEmployee.jsp");
+        } else {
             response.sendRedirect("error.jsp");
         }
-
     }
 
     /**
@@ -134,6 +107,6 @@ public class addCustomer extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

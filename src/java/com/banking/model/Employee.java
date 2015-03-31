@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rkshakyaprojects.banking.model;
+package com.banking.model;
 
 /**
  *
@@ -11,7 +11,7 @@ package com.rkshakyaprojects.banking.model;
  */
 public class Employee {
 
-    private int empID;
+    private Integer id;
     private String firstname;
     private String middlename;
     private String lastname;
@@ -27,12 +27,12 @@ public class Employee {
     private int isadmin;
     private int isactive;
 
-    public int getEmpID() {
-        return empID;
+    public int getId() {
+        return id;
     }
 
-    public void setEmpID(int empID) {
-        this.empID = empID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDepartment() {
@@ -146,7 +146,5 @@ public class Employee {
     public void setIsactive(int isactive) {
         this.isactive = isactive;
     }
-    
-    
 
 }

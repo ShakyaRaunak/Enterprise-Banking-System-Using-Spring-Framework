@@ -1,11 +1,9 @@
-package com.rkshakyaprojects.banking.controller;
+package com.banking.controller;
 
-import com.rkshakyaprojects.banking.model.Customer;
-import com.rkshakyaprojects.banking.model.CustomerAddress;
-import com.rkshakyaprojects.banking.model.CustomerAddressDao;
-import com.rkshakyaprojects.banking.model.CustomerDao;
-import com.rkshakyaprojects.banking.model.CustomerStreet;
-import com.rkshakyaprojects.banking.model.CustomerStreetDao;
+import com.banking.model.Customer;
+import com.banking.model.Address;
+import com.banking.utils.AddressDao;
+import com.banking.utils.CustomerDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -70,60 +68,48 @@ public class updateCustomer extends HttpServlet {
         String mobilecontact = request.getParameter("mobilecontact");
         String dateofbirth = request.getParameter("dateofbirth");
         String dateofjoin = request.getParameter("dateofjoin");
-        String zipcode = request.getParameter("zipcode");
+        String zipCode = request.getParameter("zipcode");
         String city = request.getParameter("city");
         String state = request.getParameter("state");
         String street = request.getParameter("street");
         String streetnumber = request.getParameter("streetnumber");
         String apartmentnumber = request.getParameter("apartmentnumber");
         String customerstatus = request.getParameter("customerstatus");
-        int isactive;
-        if ("active".equals(customerstatus)) {
-            isactive = 1;
-        } else {
-            isactive = 0;
-        }
+        Boolean isactive = ("active".equals(customerstatus));
+        
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
+        CustomerDao customerDao = (CustomerDao) ctx.getBean("cdao");
+        AddressDao addressDao = (AddressDao) ctx.getBean("cadao");
 
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-        CustomerDao cdao = (CustomerDao) ctx.getBean("cdao");
-        CustomerAddressDao cadao = (CustomerAddressDao) ctx.getBean("cadao");
-        CustomerStreetDao csdao = (CustomerStreetDao) ctx.getBean("csdao");
+        Customer specificCustomer = customerDao.getSpecificCustomer(Integer.parseInt(custid));
+        int addressid = specificCustomer.getAddress();
+        Address customerAddress = addressDao.getSpecificAddress(addressid);
+        
+        Address address = new Address();
+        address.setId(addressid);
+        address.setZipCode(zipCode);
+        address.setCity(city);
+        address.setState(state);
+        address.setStreet(street);
+        address.setStreetNumber(streetnumber);
+        address.setApartmentNumber(apartmentnumber);
+        int updateCustomerAddress = addressDao.updateCustomerAddress(address);
 
-        Customer cust = cdao.getSpecificCustomer(Integer.parseInt(custid));
-        int addressid = cust.getAddress();
-        CustomerAddress custAddress = cadao.getSpecificCustomerAddress(addressid);
-        int streetid = custAddress.getStreetid();
-
-        CustomerStreet cs = new CustomerStreet();
-        cs.setStreetid(streetid);
-        cs.setStreet(street);
-        cs.setStreetnumber(streetnumber);
-        cs.setApartmentnumber(apartmentnumber);
-        int status = csdao.updateCustomerStreet(cs);
-
-        CustomerAddress ca = new CustomerAddress();
-        ca.setAddressid(addressid);
-        ca.setZipcode(zipcode);
-        ca.setCity(city);
-        ca.setState(state);
-        status = cadao.updateCustomerAddress(ca);
-
-        Customer c = new Customer();
-        c.setId(Integer.parseInt(custid));
-        c.setFirstName(firstname);
-        c.setMiddleName(middlename);
-        c.setLastName(lastname);
-        c.setPhone(homecontact);
-        c.setDateOfBirth(dateofbirth);
-        c.setDateOfJoin(dateofjoin);
-        c.setIsActive(isactive);
-        status = cdao.updateCustomer(c);
-        if (status > 0) {
+        Customer customer = new Customer();
+        customer.setId(Integer.parseInt(custid));
+        customer.setFirstName(firstname);
+        customer.setMiddleName(middlename);
+        customer.setLastName(lastname);
+        customer.setPhone(homecontact);
+        customer.setDateOfBirth(dateofbirth);
+        customer.setDateOfJoin(dateofjoin);
+        customer.setIsActive(isactive);
+        updateCustomerAddress = customerDao.updateCustomer(customer);
+        if (updateCustomerAddress > 0) {
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");
         } else {
             response.sendRedirect("error.jsp");
         }
-
     }
 
     @Override

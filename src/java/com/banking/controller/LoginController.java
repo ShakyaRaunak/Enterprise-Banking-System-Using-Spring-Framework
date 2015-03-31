@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.rkshakyaprojects.banking.controller;
+package com.banking.controller;
 
-import com.rkshakyaprojects.banking.model.LoginBean;
-import com.rkshakyaprojects.banking.model.DBConnection;
+import com.banking.model.LoginBean;
+import com.banking.utils.DBConnectionUtils;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -20,7 +15,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Raunak Shakya
  */
-public class loginController extends HttpServlet {
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -68,14 +63,14 @@ public class loginController extends HttpServlet {
         String loginname = request.getParameter("username");
         String loginpass = request.getParameter("password");
         LoginBean bean = new LoginBean();
-        bean.setLoginname(loginname);
-        bean.setLoginpass(loginpass);
+        bean.setUsername(loginname);
+        bean.setPassword(loginpass);
         boolean status = false;
         boolean admincheck;
         int userID;
 
         try {
-            DBConnection dbcon = new DBConnection();
+            DBConnectionUtils dbcon = new DBConnectionUtils();
             if (dbcon.connect()) {
                 status = bean.validate();
             }
@@ -84,8 +79,8 @@ public class loginController extends HttpServlet {
         }
 
         if (status) {
-            userID = bean.getUserID();
-            admincheck = bean.isIsadmin();
+            userID = bean.getId();
+            admincheck = bean.getIsAdmin();
             HttpSession sess = request.getSession();
             sess.setAttribute("sessUserID", userID);
             sess.setAttribute("sessIsadmin", admincheck);

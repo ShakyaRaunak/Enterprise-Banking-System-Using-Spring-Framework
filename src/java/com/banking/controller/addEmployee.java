@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.rkshakyaprojects.banking.controller;
+package com.banking.controller;
 
-import com.rkshakyaprojects.banking.model.Employee;
-import com.rkshakyaprojects.banking.model.EmployeeDao;
+import com.banking.model.Employee;
+import com.banking.utils.EmployeeDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

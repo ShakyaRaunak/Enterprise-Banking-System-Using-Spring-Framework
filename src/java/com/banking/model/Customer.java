@@ -1,4 +1,4 @@
-package com.rkshakyaprojects.banking.model;
+package com.banking.model;
 
 /**
  *
@@ -6,21 +6,21 @@ package com.rkshakyaprojects.banking.model;
  */
 public class Customer {
 
-    private int id;
+    private Integer id;
     private String firstName;
     private String middleName;
     private String lastName;
     private String email;
     private String phone;
-    private int address;
-    private int account;
+    private Integer address;
+    private Integer account;
     private String dateOfBirth;
     private String dateOfJoin;
     private String username;
     private String password;
-    private int isActive;
+    private Boolean isActive;
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
@@ -116,11 +116,11 @@ public class Customer {
         this.password = password;
     }
 
-    public int getIsActive() {
+    public Boolean getIsActive() {
         return this.isActive;
     }
 
-    public void setIsActive(int isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 }
