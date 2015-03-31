@@ -56,8 +56,8 @@
                     <th>Actions</th>
                         <%
                             ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-                            EmployeeDao edao = (EmployeeDao) ctx.getBean("edao");
-                            List<Employee> emplist = edao.getAllEmployees();
+                            EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
+                            List<Employee> emplist = employeeDao.getAllEmployees();
 
                             int serialno = 0;
                             for (Employee emp : emplist) {

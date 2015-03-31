@@ -18,7 +18,7 @@
             try {
                 userid = Integer.parseInt(session.getAttribute("sessUserID").toString());
             } catch (Exception e) {
-                userid=0;
+                userid = 0;
             }
             if (userid == 0) {
                 response.sendRedirect("../index.jsp");

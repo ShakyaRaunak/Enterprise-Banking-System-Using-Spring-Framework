@@ -14,10 +14,10 @@
     String custid = request.getParameter("cid");
 
     ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-    CustomerDao cdao = (CustomerDao) ctx.getBean("cdao");
+    CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
     Customer c = new Customer();
     c.setCustID(Integer.parseInt(custid));
-    int status = cdao.restoreCustomer(c);
+    int status = customerDao.restoreCustomer(c);
     if(status>0){
         response.sendRedirect("ViewDeletedCustomer.jsp");
     }

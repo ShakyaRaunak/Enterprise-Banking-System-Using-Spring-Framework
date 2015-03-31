@@ -4,11 +4,11 @@
     Author     : Raunak Shakya
 --%>
 
-<%@page import="com.bsp.bankingsystemproject.CustomerAddress"%>
+<%@page import="com.banking.model.Address"%>
+<%@page import="com.banking.utils.AddressDao"%>
+<%@page import="com.banking.model.Customer"%>
+<%@page import="com.banking.utils.CustomerDao" %>
 <%@page import="java.util.List"%>
-<%@page import="com.bsp.bankingsystemproject.CustomerAddressDao"%>
-<%@page import="com.bsp.bankingsystemproject.Customer"%>
-<%@page import="com.bsp.bankingsystemproject.CustomerDao"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -48,27 +48,28 @@
                     <th>Actions</th>
                         <%
                             ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-                            CustomerDao cdao = (CustomerDao) ctx.getBean("cdao");
-                            List<Customer> custlist = cdao.getDeletedCustomers();
+                            CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
+                            List<Customer> custlist = customerDao.getDeletedCustomers();
 
-                            CustomerAddressDao cadao = (CustomerAddressDao) ctx.getBean("cadao");
+                            AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
                             int serialno = 0;
                             for (Customer cust : custlist) {
                                 serialno++;
                                 out.print("<tr>");
                                 out.print("<td>" + serialno + "</td>");
-                                out.print("<td>" + cust.getFirstname() + " " + cust.getMiddlename() + " " + cust.getLastname() + "</td>");
+                                out.print("<td>" + cust.getFirstName() + " " + cust.getMiddleName() + " " + cust.getLastName() + "</td>");
 
-                                CustomerAddress custaddr = cadao.getSpecificCustomerAddress(cust.getAddressid());
+                                Address custaddr = addressDao.getSpecificAddress(cust.getAddress());
                                 out.print("<td>" + custaddr.getState() + ", " + custaddr.getCity() + "</td>");
 
-                                out.print("<td>" + cust.getDateofbirth() + "</td>");
-                                out.print("<td>" + cust.getDateofjoin() + "</td>");
-                                out.print("<td>" + cust.getCustID() + "</td>");
-                                out.print("<td>" + cust.getCustID() + "</td>");
-                                out.print("<td>" + cust.getHomecontact() + ", " + cust.getMobilecontact() + "</td>");
-                                out.print("<td><a href='UpdateCustomer.jsp?cid=" + cust.getCustID() + "'>Edit</a> | "
-                                        + "<a href='RestoreCustomer.jsp?cid=" + cust.getCustID() + "' onclick='javascript:return confirmdelete();'>Restore</a></td>");
+                                out.print("<td>" + cust.getDateOfBirth() + "</td>");
+                                out.print("<td>" + cust.getDateOfJoin() + "</td>");
+                                out.print("<td>" + cust.getId() + "</td>");
+                                out.print("<td>" + cust.getId() + "</td>");
+                                out.print("<td>" + //cust.getHomecontact() + ", " + cust.getMobilecontact() + 
+                                        "</td>");
+                                out.print("<td><a href='UpdateCustomer.jsp?cid=" + cust.getId() + "'>Edit</a> | "
+                                        + "<a href='RestoreCustomer.jsp?cid=" + cust.getId() + "' onclick='javascript:return confirmdelete();'>Restore</a></td>");
                                 out.print("</tr>");
                             }
                         %>

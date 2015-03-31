@@ -4,12 +4,10 @@
     Author     : Raunak Shakya
 --%>
 
-<%@page import="com.bsp.bankingsystemproject.CustomerStreet"%>
-<%@page import="com.bsp.bankingsystemproject.CustomerAddress"%>
-<%@page import="com.bsp.bankingsystemproject.CustomerStreetDao"%>
-<%@page import="com.bsp.bankingsystemproject.CustomerAddressDao"%>
-<%@page import="com.bsp.bankingsystemproject.Customer"%>
-<%@page import="com.bsp.bankingsystemproject.CustomerDao"%>
+<%@page import="com.banking.model.Address"%>
+<%@page import="com.banking.utils.AddressDao"%>
+<%@page import="com.banking.model.Customer"%>
+<%@page import="com.banking.utils.CustomerDao"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -41,43 +39,41 @@
                 String custid = request.getParameter("cid");
 
                 ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-                CustomerDao cdao = (CustomerDao) ctx.getBean("cdao");
-                CustomerAddressDao cadao = (CustomerAddressDao) ctx.getBean("cadao");
-                CustomerStreetDao csdao = (CustomerStreetDao) ctx.getBean("csdao");
-
-                Customer c = cdao.getSpecificCustomer(Integer.parseInt(custid));
-                CustomerAddress ca = cadao.getSpecificCustomerAddress(c.getAddressid());
-                CustomerStreet cs = csdao.getSpecificCustomerStreet(ca.getStreetid());
+                CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
+                AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
+                
+                Customer c = customerDao.getSpecificCustomer(Integer.parseInt(custid));
+                Address ca = addressDao.getSpecificAddress(c.getId());
 
             %>
             <form action="../updateCustomer" method="post">
                 <table>
                     <tr>
                         <td>First Name :</td>
-                        <td><input type="text" name="firstname" value="<%= c.getFirstname()%>"/></td>
+                        <td><input type="text" name="firstname" value="<%= c.getFirstName()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Middle Name :</td>
-                        <td><input type="text" name="middlename" value="<%= c.getMiddlename()%>"/></td>
+                        <td><input type="text" name="middlename" value="<%= c.getMiddleName()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Last Name :</td>
-                        <td><input type="text" name="lastname" value="<%= c.getLastname()%>"/></td>
+                        <td><input type="text" name="lastname" value="<%= c.getLastName()%>"/></td>
                     </tr>
                     <tr>
                         <td>Home Contact :</td>
-                        <td><input type="text" name="homecontact" value="<%= c.getHomecontact()%>"/></td>
+                        <td><input type="text" name="homecontact" value=""/></td>
                         <td>&nbsp;</td>
                         <td>Mobile Contact :</td>
-                        <td><input type="text" name="mobilecontact" value="<%= c.getMobilecontact()%>"/></td>
+                        <td><input type="text" name="mobilecontact" value=""/></td>
                         <td>&nbsp;</td>
                         <td>Zip-Code :</td>
-                        <td><input type="text" name="zipcode" value="<%= ca.getZipcode()%>"/></td>
+                        <td><input type="text" name="zipcode" value="<%= ca.getZipCode()%>"/></td>
                     </tr>
                     <tr>
                         <td>Date of Birth :</td>
-                        <td><input type="text" name="dateofbirth" value="<%= c.getDateofbirth()%>"/></td>
+                        <td><input type="text" name="dateofbirth" value="<%= c.getDateOfBirth()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Date of Join :</td>
-                        <td><input type="text" name="dateofjoin" value="<%= c.getDateofjoin()%>"/></td>
+                        <td><input type="text" name="dateofjoin" value="<%= c.getDateOfJoin()%>"/></td>
                     </tr>
                     <tr>
                         <td>City :</td>
@@ -88,19 +84,19 @@
                     </tr>
                     <tr>
                         <td>Street :</td>
-                        <td><input type="text" name="street" value="<%= cs.getStreet()%>"/></td>
+                        <td><input type="text" name="street" value="<%= ca.getStreet()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Street No. :</td>
-                        <td><input type="text" name="streetnumber" value="<%= cs.getStreetnumber()%>"/></td>
+                        <td><input type="text" name="streetnumber" value="<%= ca.getStreetNumber()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Apartment No. :</td>
-                        <td><input type="text" name="apartmentnumber" value="<%= cs.getApartmentnumber()%>"/></td>
+                        <td><input type="text" name="apartmentnumber" value="<%= ca.getApartmentNumber()%>"/></td>
                     </tr>
                     <tr>
                         <td>Current Status :</td>
                         <td>
                             <%
-                                if (c.getIsactive() == 1) {
+                                if (c.getIsActive() == true) {
                             %>
                             <input type="checkbox" name="customerstatus"  value="active" checked/>
                             <%

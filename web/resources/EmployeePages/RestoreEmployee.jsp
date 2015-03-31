@@ -14,10 +14,10 @@
     String empid = request.getParameter("eid");
 
     ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-    EmployeeDao edao = (EmployeeDao) ctx.getBean("edao");
+    EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
     Employee e = new Employee();
     e.setEmpID(Integer.parseInt(empid));
-    int status = edao.restoreEmployee(e);
+    int status = employeeDao.restoreEmployee(e);
     if(status>0){
         response.sendRedirect("ViewEmployee.jsp");
     }

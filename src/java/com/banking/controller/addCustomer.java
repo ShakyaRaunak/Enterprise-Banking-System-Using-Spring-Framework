@@ -77,8 +77,8 @@ public class addCustomer extends HttpServlet {
         Boolean isactive = ("active".equals(customerstatus));
         
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-        CustomerDao customerDao = (CustomerDao) ctx.getBean("cdao");
-        AddressDao addressDao = (AddressDao) ctx.getBean("cadao");
+        CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
+        AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
 
         Address address = new Address();
         address.setZipCode(zipcode);

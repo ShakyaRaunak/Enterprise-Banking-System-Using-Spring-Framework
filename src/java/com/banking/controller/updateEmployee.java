@@ -75,7 +75,7 @@ public class updateEmployee extends HttpServlet {
         int isadmin = ("active".equals(checkadmin)) ? 1 : 0;
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
-        EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("edao");
+        EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
 
         Employee employee = new Employee();
         employee.setId(Integer.parseInt(empid));

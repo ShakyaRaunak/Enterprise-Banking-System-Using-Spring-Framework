@@ -27,7 +27,7 @@
                 response.sendRedirect("../index.jsp");
             }
         %>
-        
+
         <jsp:include page="../EmployeePages/EmpPagesHeader.jsp"/>
 
         <div class="container">

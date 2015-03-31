@@ -2,30 +2,26 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.com/dtd/spring-beans-2.0.dtd">
 
 <beans>
-    <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://localhost:5432/BankingSystemDB"/>
         <property name="username" value="postgres"/>
-        <property name="password" value="niitktm"/>
+        <property name="password" value="postgres"/>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="ds"/>
+        <property name="dataSource" ref=datasourceds"/>
     </bean>
     
-    <bean id="cdao" class="com.bsp.bankingsystemproject.CustomerDao">
+    <bean id="customerDao" class="com.bsp.bankingsystemproject.CustomerDao">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
-    <bean id="edao" class="com.bsp.bankingsystemproject.EmployeeDao">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
-    </bean>
-            
-    <bean id="csdao" class="com.bsp.bankingsystemproject.CustomerStreetDao">
+    <bean id="employeeDao" class="com.bsp.bankingsystemproject.EmployeeDao">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
     
-    <bean id="cadao" class="com.bsp.bankingsystemproject.CustomerAddressDao">
+    <bean id="addressDao" class="com.bsp.bankingsystemproject.AddressDao">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 </beans>

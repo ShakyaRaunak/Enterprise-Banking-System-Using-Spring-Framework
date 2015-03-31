@@ -26,8 +26,8 @@
                 String empid = request.getParameter("eid");
 
                 ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-                EmployeeDao edao = (EmployeeDao) ctx.getBean("edao");
-                Employee e = edao.getSpecificEmployee(Integer.parseInt(empid));
+                EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
+                Employee e = employeeDao.getSpecificEmployee(Integer.parseInt(empid));
 
             %>
             <form action="../updateEmployee" method="post">

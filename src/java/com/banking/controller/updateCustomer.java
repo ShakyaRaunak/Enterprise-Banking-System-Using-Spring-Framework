@@ -78,8 +78,8 @@ public class updateCustomer extends HttpServlet {
         Boolean isactive = ("active".equals(customerstatus));
         
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
-        CustomerDao customerDao = (CustomerDao) ctx.getBean("cdao");
-        AddressDao addressDao = (AddressDao) ctx.getBean("cadao");
+        CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
+        AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
 
         Customer specificCustomer = customerDao.getSpecificCustomer(Integer.parseInt(custid));
         int addressid = specificCustomer.getAddress();
