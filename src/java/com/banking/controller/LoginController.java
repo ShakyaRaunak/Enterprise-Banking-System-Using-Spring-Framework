@@ -1,6 +1,6 @@
 package com.banking.controller;
 
-import com.banking.model.LoginBean;
+import com.banking.utils.LoginBean;
 import com.banking.utils.DBConnectionUtils;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -72,7 +72,7 @@ public class LoginController extends HttpServlet {
         try {
             DBConnectionUtils dbcon = new DBConnectionUtils();
             if (dbcon.connect()) {
-                status = bean.validate();
+                status = bean.authenticate();
             }
         } catch (SQLException | ClassNotFoundException ex) {
             //JOptionPane.showMessageDialog(null, "Error connecting to database!");

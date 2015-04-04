@@ -9,16 +9,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Banking System Project</title>
-        <link rel="stylesheet" href="stylesheets/style.css"/>
+        <title>Banking System</title>
+        <link rel="stylesheet" type="text/css" href="../stylesheets/app.css"/>
     </head>
     <body>
-        <jsp:include page="header.jsp"/>
-        
+        <jsp:include page="../jsp/includes/main.jsp"/>
+
         <div class="container">
             <div style="padding:20px;">
-            <p>Welcome to the Banking Enterprise System Project....</p>
-            <p>This project covers topics such as Java Server Pages, Servlets and Spring Framework.</p>
+                <p>Welcome to the Banking Enterprise System Project....</p>
+                <p>This project covers topics such as Java Server Pages, Servlets and Spring Framework.</p>
             </div>
         </div>
 

@@ -10,11 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <link rel="stylesheet" href="stylesheets/style.css"/>
+        <link rel="stylesheet" href="../stylesheets/app.css"/>
     </head>
     <body>
-        <jsp:include page="header.jsp"/>
-        
+        <jsp:include page="../jsp/includes/main.jsp"/>
+
         <div class="container">
             <h3>Login to your account</h3>
             <form action="./loginController" method="post">

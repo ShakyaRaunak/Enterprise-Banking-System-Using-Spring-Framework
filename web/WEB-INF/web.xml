@@ -12,49 +12,9 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
-    <servlet>
-        <servlet-name>loginController</servlet-name>
-        <servlet-class>controller.loginController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>addCustomer</servlet-name>
-        <servlet-class>controller.addCustomer</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>addEmployee</servlet-name>
-        <servlet-class>controller.addEmployee</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>updateCustomer</servlet-name>
-        <servlet-class>controller.updateCustomer</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>updateEmployee</servlet-name>
-        <servlet-class>controller.updateEmployee</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>loginController</servlet-name>
-        <url-pattern>/loginController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>addCustomer</servlet-name>
-        <url-pattern>/addCustomer</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>addEmployee</servlet-name>
-        <url-pattern>/addEmployee</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>updateCustomer</servlet-name>
-        <url-pattern>/updateCustomer</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>updateEmployee</servlet-name>
-        <url-pattern>/updateEmployee</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -62,6 +22,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>redirect.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

@@ -82,7 +82,7 @@ public class updateCustomer extends HttpServlet {
         AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
 
         Customer specificCustomer = customerDao.getSpecificCustomer(Integer.parseInt(custid));
-        int addressid = specificCustomer.getAddress();
+        int addressid = specificCustomer.getAddressId();
         Address customerAddress = addressDao.getSpecificAddress(addressid);
         
         Address address = new Address();
@@ -90,7 +90,7 @@ public class updateCustomer extends HttpServlet {
         address.setZipCode(zipCode);
         address.setCity(city);
         address.setState(state);
-        address.setStreet(street);
+        address.setStreetName(street);
         address.setStreetNumber(streetnumber);
         address.setApartmentNumber(apartmentnumber);
         int updateCustomerAddress = addressDao.updateCustomerAddress(address);
@@ -103,7 +103,7 @@ public class updateCustomer extends HttpServlet {
         customer.setPhone(homecontact);
         customer.setDateOfBirth(dateofbirth);
         customer.setDateOfJoin(dateofjoin);
-        customer.setIsActive(isactive);
+        //customer.setIsActive(isactive);
         updateCustomerAddress = customerDao.updateCustomer(customer);
         if (updateCustomerAddress > 0) {
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");

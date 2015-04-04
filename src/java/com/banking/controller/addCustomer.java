@@ -4,6 +4,7 @@ import com.banking.model.Address;
 import com.banking.model.Customer;
 import com.banking.utils.CustomerDao;
 import com.banking.utils.AddressDao;
+import com.sun.org.apache.xerces.internal.util.Status;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -74,7 +75,7 @@ public class addCustomer extends HttpServlet {
         String streetnumber = request.getParameter("streetnumber");
         String apartmentnumber = request.getParameter("apartmentnumber");
         String customerstatus = request.getParameter("customerstatus");
-        Boolean isactive = ("active".equals(customerstatus));
+        Status status = Status.valueOf(customerstatus);
         
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
         CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
@@ -84,21 +85,21 @@ public class addCustomer extends HttpServlet {
         address.setZipCode(zipcode);
         address.setCity(city);
         address.setState(state);
-        address.setStreet(street);
+        address.setStreetName(street);
         address.setStreetNumber(streetnumber);
         address.setApartmentNumber(apartmentnumber);
         int saveCustomerAddress = addressDao.saveCustomerAddress(address);
 
         Customer customer = new Customer();
         Address custAddress = addressDao.getCustomerAddressID();
-        customer.setAddress(custAddress.getId());
+        customer.setAddressId(custAddress.getId());
         customer.setFirstName(firstname);
         customer.setMiddleName(middlename);
         customer.setLastName(lastname);
         customer.setPhone(homecontact);
         customer.setDateOfBirth(dateofbirth);
         customer.setDateOfJoin(dateofjoin);
-        customer.setIsActive(isactive);
+        //customer.setStatus(status);
         saveCustomerAddress = customerDao.saveCustomer(customer);
         if (saveCustomerAddress > 0) {
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");

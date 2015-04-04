@@ -36,15 +36,16 @@ public class EmployeeDao {
                         while (rs.next()) {
                             Employee e = new Employee();
                             e.setId(rs.getInt("employee_id"));
-                            e.setFirstname(rs.getString("employee_firstname"));
-                            e.setMiddlename(rs.getString("employee_middlename"));
-                            e.setLastname(rs.getString("employee_lastname"));
-                            e.setHomecontact(rs.getString("employee_homecontact"));
-                            e.setMobilecontact(rs.getString("employee_mobilecontact"));
-                            e.setDateofbirth(rs.getString("employee_dateofbirth"));
-                            e.setDateofjoin(rs.getString("employee_dateofjoin"));
-                            e.setAddress(rs.getString("employee_address"));
-                            e.setPost(rs.getString("employee_post"));
+                            e.setFirstName(rs.getString("employee_firstname"));
+                            e.setMiddleName(rs.getString("employee_middlename"));
+                            e.setLastName(rs.getString("employee_lastname"));
+                            e.setHomeContact(rs.getString("employee_homecontact"));
+                            e.setMobileNumber(rs.getString("employee_mobilecontact"));
+                            e.setDateOfBirth(rs.getString("employee_dateofbirth"));
+                            e.setDateOfJoin(rs.getString("employee_dateofjoin"));
+                            e.setAddressId(rs.getInt("employee_address"));
+                            String post  = rs.getString("employee_post");
+                            e.setPost(EmployeePost.valueOf(post));
                             list.add(e);
                         }
                         return list;
@@ -62,18 +63,22 @@ public class EmployeeDao {
                         Employee e = new Employee();
                         while (rs.next()) {
                             e.setId(rs.getInt("employee_id"));
-                            e.setFirstname(rs.getString("employee_firstname"));
-                            e.setMiddlename(rs.getString("employee_middlename"));
-                            e.setLastname(rs.getString("employee_lastname"));
-                            e.setHomecontact(rs.getString("employee_homecontact"));
-                            e.setMobilecontact(rs.getString("employee_mobilecontact"));
-                            e.setDateofbirth(rs.getString("employee_dateofbirth"));
-                            e.setDateofjoin(rs.getString("employee_dateofjoin"));
-                            e.setAddress(rs.getString("employee_address"));
-                            e.setDepartment(rs.getString("employee_department"));
-                            e.setPost(rs.getString("employee_post"));
-                            e.setIsactive(rs.getInt("employee_isactive"));
-                            e.setIsadmin(rs.getInt("employee_isadmin"));
+                            e.setFirstName(rs.getString("employee_firstname"));
+                            e.setMiddleName(rs.getString("employee_middlename"));
+                            e.setLastName(rs.getString("employee_lastname"));
+                            e.setHomeContact(rs.getString("employee_homecontact"));
+                            e.setMobileNumber(rs.getString("employee_mobilecontact"));
+                            e.setDateOfBirth(rs.getString("employee_dateofbirth"));
+                            e.setDateOfJoin(rs.getString("employee_dateofjoin"));
+                            e.setAddressId(rs.getInt("employee_address"));
+                            String post  = rs.getString("employee_post");
+                            e.setPost(EmployeePost.valueOf(post));
+                            String department = rs.getString("employee_department");
+                            e.setDepartment(DepartmentEnum.valueOf(department));
+                            String status = rs.getString("employee_isactive");
+                            e.setStatus(Status.valueOf(status));
+                            String type = rs.getString("employee_isadmin");
+                            e.setType(UserType.valueOf(type));
                         }
                         return e;
                     }
@@ -90,16 +95,16 @@ public class EmployeeDao {
                         List<Employee> list = new ArrayList<>();
                         while (rs.next()) {
                             Employee e = new Employee();
-                            e.setId(rs.getInt("employee_id"));
-                            e.setFirstname(rs.getString("employee_firstname"));
-                            e.setMiddlename(rs.getString("employee_middlename"));
-                            e.setLastname(rs.getString("employee_lastname"));
-                            e.setHomecontact(rs.getString("employee_homecontact"));
-                            e.setMobilecontact(rs.getString("employee_mobilecontact"));
-                            e.setDateofbirth(rs.getString("employee_dateofbirth"));
-                            e.setDateofjoin(rs.getString("employee_dateofjoin"));
-                            e.setAddress(rs.getString("employee_address"));
-                            e.setPost(rs.getString("employee_post"));
+                            e.setFirstName(rs.getString("employee_firstname"));
+                            e.setMiddleName(rs.getString("employee_middlename"));
+                            e.setLastName(rs.getString("employee_lastname"));
+                            e.setHomeContact(rs.getString("employee_homecontact"));
+                            e.setMobileNumber(rs.getString("employee_mobilecontact"));
+                            e.setDateOfBirth(rs.getString("employee_dateofbirth"));
+                            e.setDateOfJoin(rs.getString("employee_dateofjoin"));
+                            e.setAddressId(rs.getInt("employee_address"));
+                            String post  = rs.getString("employee_post");
+                            e.setPost(EmployeePost.valueOf(post));
                             list.add(e);
                         }
                         return list;
@@ -111,20 +116,20 @@ public class EmployeeDao {
     public int saveEmployee(Employee e) {
         String query = "INSERT INTO employee_table(employee_firstname, employee_middlename, employee_lastname, "
                 + "employee_homecontact, employee_mobilecontact, employee_dateofjoin, employee_dateofbirth, "
-                + "employee_department, employee_post, employee_isactive, employee_isadmin) VALUES('" + e.getFirstname() + "','"
-                + e.getMiddlename() + "','" + e.getLastname() + "','" + e.getHomecontact() + "','" + e.getMobilecontact()
-                + "','" + e.getDateofbirth() + "','" + e.getDateofjoin() + "','" + e.getDepartment() + "', '"
-                + e.getPost() + "', '" + e.getIsactive() + "', '" + e.getIsadmin() + "')";
+                + "employee_department, employee_post, employee_isactive, employee_isadmin) VALUES('" + e.getFirstName() + "','"
+                + e.getMiddleName() + "','" + e.getLastName() + "','" + e.getHomeContact() + "','" + e.getMobileNumber()
+                + "','" + e.getDateOfBirth() + "','" + e.getDateOfJoin() + "','" + e.getDepartment() + "', '"
+                + e.getPost() + "', '" + e.getStatus() + "', '" + e.getType() + "')";
         return jdbcTemplate.update(query);
     }
 
     public int updateEmployee(Employee e) {
-        String query = "UPDATE employee_table SET employee_firstname='" + e.getFirstname()
-                + "', employee_middlename='" + e.getMiddlename() + "', employee_lastname='" + e.getLastname()
-                + "', employee_homecontact='" + e.getHomecontact() + "', employee_mobilecontact='" + e.getMobilecontact()
-                + "', employee_dateofjoin='" + e.getDateofjoin() + "', employee_department='" + e.getDepartment()
-                + "', employee_post='" + e.getPost() + "', employee_isadmin='" + e.getIsadmin()
-                + "', employee_isactive='" + e.getIsactive()
+        String query = "UPDATE employee_table SET employee_firstname='" + e.getFirstName()
+                + "', employee_middlename='" + e.getMiddleName() + "', employee_lastname='" + e.getLastName()
+                + "', employee_homecontact='" + e.getHomeContact() + "', employee_mobilecontact='" + e.getMobileNumber()
+                + "', employee_dateofjoin='" + e.getDateOfJoin() + "', employee_department='" + e.getDepartment()
+                + "', employee_post='" + e.getPost() + "', employee_isadmin='" + e.getType()
+                + "', employee_isactive='" + e.getStatus()
                 + "' where employee_id='" + e.getId() + "'";
         return jdbcTemplate.update(query);
     }

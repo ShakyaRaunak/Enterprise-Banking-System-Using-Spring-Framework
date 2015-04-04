@@ -5,6 +5,11 @@
  */
 package com.banking.model;
 
+import com.banking.utils.DepartmentEnum;
+import com.banking.utils.EmployeePost;
+import com.banking.utils.Status;
+import com.banking.utils.UserType;
+
 /**
  *
  * @author Raunak Shakya
@@ -12,139 +17,139 @@ package com.banking.model;
 public class Employee {
 
     private Integer id;
-    private String firstname;
-    private String middlename;
-    private String lastname;
-    private String homecontact;
-    private String mobilecontact;
-    private String dateofjoin;
-    private String dateofbirth;
-    private String loginname;
-    private String loginpass;
-    private String address;
-    private String department;
-    private String post;
-    private int isadmin;
-    private int isactive;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String homeContact;
+    private String mobileNumber;
+    private String dateOfJoin;
+    private String dateOfBirth;
+    private String username;
+    private String password;
+    private Integer addressId;
+    private DepartmentEnum department;
+    private EmployeePost post;
+    private UserType type;
+    private Status status;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getDepartment() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getHomeContact() {
+        return homeContact;
+    }
+
+    public void setHomeContact(String homeContact) {
+        this.homeContact = homeContact;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getDateOfJoin() {
+        return dateOfJoin;
+    }
+
+    public void setDateOfJoin(String dateOfJoin) {
+        this.dateOfJoin = dateOfJoin;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+
+    public DepartmentEnum getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(DepartmentEnum department) {
         this.department = department;
     }
 
-    public String getPost() {
+    public EmployeePost getPost() {
         return post;
     }
 
-    public void setPost(String post) {
+    public void setPost(EmployeePost post) {
         this.post = post;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public UserType getType() {
+        return type;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setType(UserType type) {
+        this.type = type;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getHomecontact() {
-        return homecontact;
-    }
-
-    public void setHomecontact(String homecontact) {
-        this.homecontact = homecontact;
-    }
-
-    public String getMobilecontact() {
-        return mobilecontact;
-    }
-
-    public void setMobilecontact(String mobilecontact) {
-        this.mobilecontact = mobilecontact;
-    }
-
-    public String getDateofjoin() {
-        return dateofjoin;
-    }
-
-    public void setDateofjoin(String dateofjoin) {
-        this.dateofjoin = dateofjoin;
-    }
-
-    public String getDateofbirth() {
-        return dateofbirth;
-    }
-
-    public void setDateofbirth(String dateofbirth) {
-        this.dateofbirth = dateofbirth;
-    }
-
-    public String getLoginname() {
-        return loginname;
-    }
-
-    public void setLoginname(String loginname) {
-        this.loginname = loginname;
-    }
-
-    public String getLoginpass() {
-        return loginpass;
-    }
-
-    public void setLoginpass(String loginpass) {
-        this.loginpass = loginpass;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getIsadmin() {
-        return isadmin;
-    }
-
-    public void setIsadmin(int isadmin) {
-        this.isadmin = isadmin;
-    }
-
-    public int getIsactive() {
-        return isactive;
-    }
-
-    public void setIsactive(int isactive) {
-        this.isactive = isactive;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
 }

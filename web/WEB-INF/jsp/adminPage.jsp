@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administrator</title>
-        <link rel="stylesheet" href="stylesheets/style.css"/>
+        <link rel="stylesheet" href="../stylesheets/app.css"/>
     </head>
     <body>
         <%
@@ -21,9 +21,9 @@
                 admincheck = Boolean.parseBoolean(session.getAttribute("sessIsadmin").toString());
             } catch (Exception e) {
                 userid = 0;
-                admincheck=false;
+                admincheck = false;
             }
-            if (userid == 0 || admincheck==false) {
+            if (userid == 0 || admincheck == false) {
                 response.sendRedirect("index.jsp");
             }
         %>

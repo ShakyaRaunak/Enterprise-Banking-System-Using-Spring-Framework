@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Employee</title>
-        <link rel="stylesheet" href="stylesheets/style.css"/>
+        <link rel="stylesheet" href="../stylesheets/app.css"/>
     </head>
     <body>
         <%

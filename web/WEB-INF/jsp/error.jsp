@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Error Received</title>
-        <link rel="stylesheet" href="stylesheets/style.css"/>
+        <link rel="stylesheet" href="../stylesheets/app.css"/>
     </head>
     <body>
         <div id="title_bar">

@@ -88,18 +88,18 @@ public class addEmployee extends HttpServlet {
         EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
 
         Employee e = new Employee();
-        e.setFirstname(firstname);
-        e.setMiddlename(middlename);
-        e.setLastname(lastname);
-        e.setHomecontact(homecontact);
-        e.setMobilecontact(mobilecontact);
-        e.setDateofbirth(dateofbirth);
-        e.setDateofjoin(dateofjoin);
-        e.setDepartment(department);
-        e.setPost(post);
-        e.setAddress(address);
-        e.setIsactive(isactive);
-        e.setIsadmin(isadmin);
+        e.setFirstName(firstname);
+        e.setMiddleName(middlename);
+        e.setLastName(lastname);
+        e.setHomeContact(homecontact);
+        e.setMobileNumber(mobilecontact);
+        e.setDateOfBirth(dateofbirth);
+        e.setDateOfJoin(dateofjoin);
+        //e.setDepartment(department);
+        //e.setPost(post);
+        //e.setAddress(address);
+        //e.setIsactive(isactive);
+        //e.setIsadmin(isadmin);
         int status = employeeDao.saveEmployee(e);
         if (status > 0) {
             response.sendRedirect("EmployeePages/ViewEmployee.jsp");

@@ -79,18 +79,18 @@ public class updateEmployee extends HttpServlet {
 
         Employee employee = new Employee();
         employee.setId(Integer.parseInt(empid));
-        employee.setFirstname(firstname);
-        employee.setMiddlename(middlename);
-        employee.setLastname(lastname);
-        employee.setHomecontact(homecontact);
-        employee.setMobilecontact(mobilecontact);
-        employee.setDateofbirth(dateofbirth);
-        employee.setDateofjoin(dateofjoin);
-        employee.setDepartment(department);
-        employee.setPost(post);
-        employee.setAddress(address);
-        employee.setIsactive(isactive);
-        employee.setIsadmin(isadmin);
+        employee.setFirstName(firstname);
+        employee.setMiddleName(middlename);
+        employee.setLastName(lastname);
+        employee.setHomeContact(homecontact);
+        employee.setMobileNumber(mobilecontact);
+        employee.setDateOfBirth(dateofbirth);
+        employee.setDateOfJoin(dateofjoin);
+        //employee.setDepartment(department);
+        //employee.setPost(post);
+        //employee.setAddress(address);
+        //employee.setIsactive(isactive);
+        //employee.setIsadmin(isadmin);
         int status = employeeDao.updateEmployee(employee);
         if (status > 0) {
             response.sendRedirect("EmployeePages/ViewEmployee.jsp");

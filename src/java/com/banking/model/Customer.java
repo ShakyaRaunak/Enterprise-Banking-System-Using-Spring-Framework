@@ -1,5 +1,7 @@
 package com.banking.model;
 
+import com.banking.utils.Status;
+
 /**
  *
  * @author Raunak Shakya
@@ -12,13 +14,13 @@ public class Customer {
     private String lastName;
     private String email;
     private String phone;
-    private Integer address;
+    private Integer addressId;
     private Integer account;
     private String dateOfBirth;
     private String dateOfJoin;
     private String username;
     private String password;
-    private Boolean isActive;
+    private Status status;
 
     public Integer getId() {
         return this.id;
@@ -68,12 +70,12 @@ public class Customer {
         this.phone = phone;
     }
 
-    public int getAddress() {
-        return this.address;
+    public int getAddressId() {
+        return this.addressId;
     }
 
-    public void setAddress(int address) {
-        this.address = address;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public int getAccount() {
@@ -116,11 +118,12 @@ public class Customer {
         this.password = password;
     }
 
-    public Boolean getIsActive() {
-        return this.isActive;
+    public Status getStatus() {
+        return this.status;
     }
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void setStatus(Status status) {
+        this.status = status;
     }
+
 }

@@ -1,6 +1,5 @@
-package com.banking.model;
+package com.banking.utils;
 
-import com.banking.utils.DBConnectionUtils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -66,7 +65,7 @@ public class LoginBean {
         this.isCustomer = isCustomer;
     }
 
-    public boolean validate() throws SQLException, ClassNotFoundException {
+    public boolean authenticate() throws SQLException, ClassNotFoundException {
         DBConnectionUtils conn = new DBConnectionUtils();
         conn.connect();
         PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM employee_table");
@@ -81,7 +80,7 @@ public class LoginBean {
                 setId(rs.getInt("employee_id"));
                 if (rs.getInt("employee_isadmin") == 1) {
                     setIsAdmin(true);
-                }else{
+                } else {
                     setIsAdmin(false);
                 }
                 i = true;

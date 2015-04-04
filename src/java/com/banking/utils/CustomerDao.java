@@ -41,7 +41,7 @@ public class CustomerDao {
                             customer.setPhone(rs.getString("customer_homecontact"));
                             customer.setDateOfBirth(rs.getString("customer_dateofbirth"));
                             customer.setDateOfJoin(rs.getString("customer_dateofjoin"));
-                            customer.setAddress(rs.getInt("customer_addressid"));
+                            customer.setAddressId(rs.getInt("customer_addressid"));
                             customers.add(customer);
                         }
                         return customers;
@@ -64,8 +64,9 @@ public class CustomerDao {
                             customer.setPhone(rs.getString("customer_homecontact"));
                             customer.setDateOfBirth(rs.getString("customer_dateofbirth"));
                             customer.setDateOfJoin(rs.getString("customer_dateofjoin"));
-                            customer.setAddress(rs.getInt("customer_addressid"));
-                            customer.setIsActive(rs.getBoolean("customer_isactive"));
+                            customer.setAddressId(rs.getInt("customer_addressid"));
+                            String status = rs.getString("customer_isactive");
+                            customer.setStatus(Status.valueOf(status));
                         }
                         return customer;
                     }
@@ -88,7 +89,7 @@ public class CustomerDao {
                             customer.setPhone(rs.getString("customer_homecontact"));
                             customer.setDateOfBirth(rs.getString("customer_dateofbirth"));
                             customer.setDateOfJoin(rs.getString("customer_dateofjoin"));
-                            customer.setAddress(rs.getInt("customer_addressid"));
+                            customer.setAddressId(rs.getInt("customer_addressid"));
                             customers.add(customer);
                         }
                         return customers;
@@ -101,7 +102,7 @@ public class CustomerDao {
                 + "customer_phone, customer_dateofbirth, customer_dateofjoin, customer_address, "
                 + "customer_isactive) VALUES('" + customer.getFirstName() + "', '" + customer.getMiddleName() + "', '" + customer.getLastName() + "', '"
                 + customer.getPhone() + "', '" + "', '" + customer.getDateOfBirth() + "', '" + customer.getDateOfJoin()
-                + "', '" + customer.getAddress() + "', '" + customer.getIsActive() + "')";
+                + "', '" + customer.getAddressId() + "', '" + customer.getStatus() + "')";
         return jdbcTemplate.update(query);
     }
 
@@ -110,7 +111,7 @@ public class CustomerDao {
                 + customer.getMiddleName() + "', customer_lastname='" + customer.getLastName() + "', customer_homecontact='"
                 + customer.getPhone() + "', customer_mobilecontact='" + "', customer_dateofbirth='"
                 + customer.getDateOfBirth() + "', customer_dateofjoin='" + customer.getDateOfJoin() + "', customer_isactive='"
-                + customer.getIsActive() + "' WHERE customer_id='" + customer.getId() + "'";
+                + customer.getStatus() + "' WHERE customer_id='" + customer.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
