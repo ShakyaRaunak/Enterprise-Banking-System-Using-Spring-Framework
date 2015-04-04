@@ -1,4 +1,4 @@
-package com.banking.utils;
+package com.banking.dao;
 
 import com.banking.model.Address;
 import java.sql.ResultSet;

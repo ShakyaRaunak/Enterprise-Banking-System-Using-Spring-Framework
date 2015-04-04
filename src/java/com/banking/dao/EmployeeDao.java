@@ -1,6 +1,10 @@
-package com.banking.utils;
+package com.banking.dao;
 
 import com.banking.model.Employee;
+import com.banking.utils.DepartmentEnum;
+import com.banking.utils.EmployeePost;
+import com.banking.utils.Status;
+import com.banking.utils.UserType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

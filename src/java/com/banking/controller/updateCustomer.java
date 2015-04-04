@@ -2,8 +2,8 @@ package com.banking.controller;
 
 import com.banking.model.Customer;
 import com.banking.model.Address;
-import com.banking.utils.AddressDao;
-import com.banking.utils.CustomerDao;
+import com.banking.dao.AddressDao;
+import com.banking.dao.CustomerDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,6 +1,7 @@
-package com.banking.utils;
+package com.banking.dao;
 
 import com.banking.model.Customer;
+import com.banking.utils.Status;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
