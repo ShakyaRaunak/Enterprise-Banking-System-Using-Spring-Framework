@@ -1,9 +1,12 @@
 package com.banking.controller;
 
 import com.banking.utils.LoginBean;
-import com.banking.utils.DBConnectionUtils;
+import com.banking.utils.DBConnection;
+import com.banking.utils.UserType;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +47,6 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**
@@ -60,43 +62,34 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        String loginname = request.getParameter("username");
-        String loginpass = request.getParameter("password");
-        LoginBean bean = new LoginBean();
-        bean.setUsername(loginname);
-        bean.setPassword(loginpass);
-        boolean status = false;
-        boolean admincheck;
-        int userID;
+        UserType userType;
+        Integer userId;
+        RequestDispatcher requestDispatcher;
 
-        try {
-            DBConnectionUtils dbcon = new DBConnectionUtils();
-            if (dbcon.connect()) {
-                status = bean.authenticate();
-            }
-        } catch (SQLException | ClassNotFoundException ex) {
-            //JOptionPane.showMessageDialog(null, "Error connecting to database!");
+        //retrieve the username and password entered by the user
+        String loginName = request.getParameter("username");
+        String loginPass = request.getParameter("password");
+        LoginBean bean = new LoginBean(loginName, loginPass);
+        Boolean loginSucceeded = bean.authenticate();
+
+        if (!loginSucceeded) {
+            requestDispatcher = request.getRequestDispatcher("login.jsp");
+            requestDispatcher.forward(request, response);
+            return;
         }
-
-        if (status) {
-            userID = bean.getId();
-            admincheck = bean.getIsAdmin();
-            HttpSession sess = request.getSession();
-            sess.setAttribute("sessUserID", userID);
-            sess.setAttribute("sessIsadmin", admincheck);
-            if (admincheck == true) {
-                RequestDispatcher rd = request.getRequestDispatcher("adminPage.jsp");
-                rd.forward(request, response);
-            } else {
-                RequestDispatcher rd = request.getRequestDispatcher("empPage.jsp");
-                rd.forward(request, response);
-
-            }
+        
+        userId = bean.getId();
+        userType = bean.getUserType();
+        HttpSession httpSession = request.getSession();
+        httpSession.setAttribute("UserId", userId);
+        httpSession.setAttribute("UserType", userType);
+        if (userType == UserType.ADMIN) {
+            requestDispatcher = request.getRequestDispatcher("adminPage.jsp");
+            requestDispatcher.forward(request, response);
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request, response);
+            requestDispatcher = request.getRequestDispatcher("empPage.jsp");
+            requestDispatcher.forward(request, response);
         }
-
     }
 
     /**
@@ -107,6 +100,6 @@ public class LoginController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

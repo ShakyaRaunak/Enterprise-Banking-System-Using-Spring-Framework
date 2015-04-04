@@ -11,6 +11,18 @@ package com.banking.utils;
  */
 public enum UserType {
 
-    ADMIN, STAFF, CUSTOMER
+    ADMIN("Admin"),
+    STAFF("Staff"),
+    CUSTOMER("Customer");
+
+    String name;
+
+    UserType(String name) {
+        this.name = name;
+    }
+
+    String getName() {
+        return this.name;
+    }
 
 }

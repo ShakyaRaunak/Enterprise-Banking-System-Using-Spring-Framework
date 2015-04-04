@@ -31,10 +31,12 @@ public class CustomerController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Customer> getAllCustomers() {
-        return jdbcTemplate.query("SELECT * FROM customer_table WHERE customer_isactive='1' ORDER BY customer_firstname ASC",
+    public List<Customer> list() {
+        return jdbcTemplate.query("SELECT * FROM customer_table WHERE "
+                + "customer_isactive='1' "
+                + "ORDER BY "
+                + "customer_firstname ASC",
                 new ResultSetExtractor<List<Customer>>() {
-
                     @Override
                     public List<Customer> extractData(ResultSet rs) throws SQLException, DataAccessException {
                         List<Customer> customers = new ArrayList<>();
@@ -55,10 +57,9 @@ public class CustomerController {
                 });
     }
 
-    public Customer getSpecificCustomer(int custid) {
+    public Customer findById(int custid) {
         return jdbcTemplate.query("SELECT * FROM customer_table WHERE customer_id='" + custid + "'",
                 new ResultSetExtractor<Customer>() {
-
                     @Override
                     public Customer extractData(ResultSet rs) throws SQLException, DataAccessException {
                         Customer customer = new Customer();
@@ -79,10 +80,9 @@ public class CustomerController {
                 });
     }
 
-    public List<Customer> getDeletedCustomers() {
+    public List<Customer> listDeletedCustomers() {
         return jdbcTemplate.query("SELECT * FROM customer_table WHERE customer_isactive='0' ORDER BY customer_firstname ASC",
                 new ResultSetExtractor<List<Customer>>() {
-
                     @Override
                     public List<Customer> extractData(ResultSet rs) throws SQLException, DataAccessException {
                         List<Customer> customers = new ArrayList<>();
@@ -103,31 +103,55 @@ public class CustomerController {
                 });
     }
 
-    public int saveCustomer(Customer customer) {
-        String query = "INSERT INTO customer_table (customer_firstname, customer_middlename, customer_lastname, "
-                + "customer_phone, customer_dateofbirth, customer_dateofjoin, customer_address, "
-                + "customer_isactive) VALUES('" + customer.getFirstName() + "', '" + customer.getMiddleName() + "', '" + customer.getLastName() + "', '"
-                + customer.getPhone() + "', '" + "', '" + customer.getDateOfBirth() + "', '" + customer.getDateOfJoin()
-                + "', '" + customer.getAddressId() + "', '" + customer.getStatus() + "')";
+    public int save(Customer customer) {
+        String query = "INSERT INTO customer_table ("
+                + "customer_firstname, "
+                + "customer_middlename, "
+                + "customer_lastname, "
+                + "customer_phone, "
+                + "customer_dateofbirth, "
+                + "customer_dateofjoin, "
+                + "customer_address, "
+                + "customer_isactive) "
+                + "VALUES('" + 
+                customer.getFirstName() + "', '" + 
+                customer.getMiddleName() + "', '" + 
+                customer.getLastName() + "', '" + 
+                customer.getPhone() + "', '" + "', '" + 
+                customer.getDateOfBirth() + "', '" + 
+                customer.getDateOfJoin() + "', '" + 
+                customer.getAddressId() + "', '" + 
+                customer.getStatus() + "')";
         return jdbcTemplate.update(query);
     }
 
-    public int updateCustomer(Customer customer) {
-        String query = "UPDATE customer_table SET customer_firstname='" + customer.getFirstName() + "', customer_middlename='"
-                + customer.getMiddleName() + "', customer_lastname='" + customer.getLastName() + "', customer_homecontact='"
-                + customer.getPhone() + "', customer_mobilecontact='" + "', customer_dateofbirth='"
-                + customer.getDateOfBirth() + "', customer_dateofjoin='" + customer.getDateOfJoin() + "', customer_isactive='"
-                + customer.getStatus() + "' WHERE customer_id='" + customer.getId() + "'";
+    public int update(Customer customer) {
+        String query = "UPDATE customer_table SET "
+                + "customer_firstname='" + customer.getFirstName() + "', "
+                + "customer_middlename='" + customer.getMiddleName() + "', "
+                + "customer_lastname='" + customer.getLastName() + "', "
+                + "customer_homecontact='" + customer.getPhone() + "', "
+                + "customer_mobilecontact='" + customer.getPhone() + "', "
+                + "customer_dateofbirth='" + customer.getDateOfBirth() + "', "
+                + "customer_dateofjoin='" + customer.getDateOfJoin() + "', "
+                + "customer_isactive='" + customer.getStatus() + "' "
+                + "WHERE customer_id='" + customer.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
-    public int deleteCustomer(Customer customer) {
-        String query = "UPDATE customer_table SET customer_isactive='0' WHERE customer_id='" + customer.getId() + "'";
+    public int delete(Customer customer) {
+        String query = "UPDATE customer_table SET "
+                + "customer_isactive='0' "
+                + "WHERE "
+                + "customer_id='" + customer.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
-    public int restoreCustomer(Customer customer) {
-        String query = "UPDATE customer_table SET customer_isactive='1' WHERE customer_id='" + customer.getId() + "'";
+    public int restore(Customer customer) {
+        String query = "UPDATE customer_table SET "
+                + "customer_isactive='1' "
+                + "WHERE "
+                + "customer_id='" + customer.getId() + "'";
         return jdbcTemplate.update(query);
     }
 

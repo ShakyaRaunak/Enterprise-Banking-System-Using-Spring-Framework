@@ -2,8 +2,6 @@ package com.banking.controller;
 
 import com.banking.model.Customer;
 import com.banking.model.Address;
-import com.banking.dao.AddressDao;
-import com.banking.dao.CustomerDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -81,9 +79,9 @@ public class updateCustomer extends HttpServlet {
         CustomerController customerController = (CustomerController) ctx.getBean("customerController");
         AddressController addressController = (AddressController) ctx.getBean("addressController");
 
-        Customer specificCustomer = customerController.getSpecificCustomer(Integer.parseInt(custid));
+        Customer specificCustomer = customerController.findById(Integer.parseInt(custid));
         int addressid = specificCustomer.getAddressId();
-        Address customerAddress = addressController.getSpecificAddress(addressid);
+        Address customerAddress = addressController.findById(addressid);
         
         Address address = new Address();
         address.setId(addressid);
@@ -93,7 +91,7 @@ public class updateCustomer extends HttpServlet {
         address.setStreetName(street);
         address.setStreetNumber(streetnumber);
         address.setApartmentNumber(apartmentnumber);
-        int updateCustomerAddress = addressController.updateCustomerAddress(address);
+        int updateCustomerAddress = addressController.update(address);
 
         Customer customer = new Customer();
         customer.setId(Integer.parseInt(custid));
@@ -104,7 +102,7 @@ public class updateCustomer extends HttpServlet {
         customer.setDateOfBirth(dateofbirth);
         customer.setDateOfJoin(dateofjoin);
         //customer.setIsActive(isactive);
-        updateCustomerAddress = customerController.updateCustomer(customer);
+        updateCustomerAddress = customerController.update(customer);
         if (updateCustomerAddress > 0) {
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");
         } else {

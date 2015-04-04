@@ -1,7 +1,6 @@
 package com.banking.controller;
 
 import com.banking.model.Employee;
-import com.banking.dao.EmployeeDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -91,7 +90,7 @@ public class updateEmployee extends HttpServlet {
         //employee.setAddress(address);
         //employee.setIsactive(isactive);
         //employee.setIsadmin(isadmin);
-        int status = employeeController.updateEmployee(employee);
+        int status = employeeController.update(employee);
         if (status > 0) {
             response.sendRedirect("EmployeePages/ViewEmployee.jsp");
         } else {

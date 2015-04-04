@@ -11,6 +11,19 @@ package com.banking.utils;
  */
 public enum EmployeePost {
 
-    CEO, MANAGER, IT_OFFICER, RECEPTIONIST
+    CEO("Chief Executive Officer"),
+    MANAGER("Manager"),
+    IT_OFFICER("IT Officer"),
+    RECEPTIONIST("Receptionist");
+
+    String name;
+
+    EmployeePost(String name) {
+        this.name = name;
+    }
+
+    String getName() {
+        return this.name;
+    }
 
 }

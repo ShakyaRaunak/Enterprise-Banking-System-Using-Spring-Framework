@@ -1,7 +1,6 @@
 package com.banking.controller;
 
 import com.banking.model.Employee;
-import com.banking.dao.EmployeeDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -87,20 +86,20 @@ public class addEmployee extends HttpServlet {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
         EmployeeController employeeController = (EmployeeController) ctx.getBean("employeeController");
 
-        Employee e = new Employee();
-        e.setFirstName(firstname);
-        e.setMiddleName(middlename);
-        e.setLastName(lastname);
-        e.setHomeContact(homecontact);
-        e.setMobileNumber(mobilecontact);
-        e.setDateOfBirth(dateofbirth);
-        e.setDateOfJoin(dateofjoin);
+        Employee employee = new Employee();
+        employee.setFirstName(firstname);
+        employee.setMiddleName(middlename);
+        employee.setLastName(lastname);
+        employee.setHomeContact(homecontact);
+        employee.setMobileNumber(mobilecontact);
+        employee.setDateOfBirth(dateofbirth);
+        employee.setDateOfJoin(dateofjoin);
         //e.setDepartment(department);
         //e.setPost(post);
         //e.setAddress(address);
         //e.setIsactive(isactive);
         //e.setIsadmin(isadmin);
-        int status = employeeController.saveEmployee(e);
+        int status = employeeController.save(employee);
         if (status > 0) {
             response.sendRedirect("EmployeePages/ViewEmployee.jsp");
         } else {

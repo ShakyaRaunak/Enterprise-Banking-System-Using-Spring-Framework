@@ -13,9 +13,12 @@ public class LoginBean {
     private Integer id;
     private String username;
     private String password;
-    private Boolean isAdmin;
-    private Boolean isEmployee;
-    private Boolean isCustomer;
+    private UserType userType;
+
+    public LoginBean(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;
@@ -41,53 +44,55 @@ public class LoginBean {
         this.password = password;
     }
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
-    public Boolean getIsEmployee() {
-        return isEmployee;
-    }
-
-    public void setIsEmployee(Boolean isEmployee) {
-        this.isEmployee = isEmployee;
-    }
-
-    public Boolean getIsCustomer() {
-        return isCustomer;
-    }
-
-    public void setIsCustomer(Boolean isCustomer) {
-        this.isCustomer = isCustomer;
-    }
-
-    public boolean authenticate() throws SQLException, ClassNotFoundException {
-        DBConnectionUtils conn = new DBConnectionUtils();
-        conn.connect();
-        PreparedStatement stmt = conn.getConnection().prepareStatement("SELECT * FROM employee_table");
-        ResultSet rs = stmt.executeQuery();
-        String receivedLoginname;
-        String receivedPassword;
-        boolean i = false;
-        while (rs.next()) {
-            receivedLoginname = rs.getString("employee_loginname");
-            receivedPassword = rs.getString("employee_loginpass");
-            if (receivedLoginname.equals(username) && receivedPassword.equals(password)) {
-                setId(rs.getInt("employee_id"));
-                if (rs.getInt("employee_isadmin") == 1) {
-                    setIsAdmin(true);
-                } else {
-                    setIsAdmin(false);
+    public Boolean authenticate() {
+        try {
+            DBConnection dbConnection = new DBConnection();
+            PreparedStatement stmt = dbConnection.getConnection().prepareStatement(
+                    "SELECT * FROM employee_table");
+            ResultSet rs = stmt.executeQuery();
+            
+            String loginName, loginPass;
+            Boolean loginSucceeded = false;
+            while (rs.next()) {
+                loginName = rs.getString("employee_loginname");
+                loginPass = rs.getString("employee_loginpass");
+                if (loginName.equals(getUsername()) && loginPass.equals(getPassword())) {
+                    setId(rs.getInt("employee_id"));
+                    
+                    String type = rs.getString("type");
+                    if (type == null) {
+                        throw new RuntimeException("User type not valid");
+                    }
+                    
+                    switch (type) {
+                        case "Admin":
+                            setUserType(UserType.ADMIN);
+                            break;
+                        case "Staff":
+                            setUserType(UserType.STAFF);
+                            break;
+                        case "Customer":
+                            setUserType(UserType.CUSTOMER);
+                            break;
+                        default:
+                            throw new RuntimeException("User type not valid");
+                    }
+                    loginSucceeded = true;
                 }
-                i = true;
             }
-        }
-        return i;
+            return loginSucceeded;
+        } catch (SQLException | RuntimeException exception) {
 
+        }
+        return false;
     }
 
 }

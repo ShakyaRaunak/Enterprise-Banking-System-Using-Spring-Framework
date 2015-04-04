@@ -23,7 +23,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
  * @author raunakshakya
  */
 public class EmployeeController {
-    
+
     private JdbcTemplate jdbcTemplate;
 
     public JdbcTemplate getJdbcTemplate() {
@@ -34,123 +34,146 @@ public class EmployeeController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Employee> getAllEmployees() {
+    public List<Employee> list() {
         return jdbcTemplate.query("SELECT * FROM employee_table WHERE employee_isactive='1' ORDER BY employee_firstname ASC",
                 new ResultSetExtractor<List<Employee>>() {
-
                     @Override
                     public List<Employee> extractData(ResultSet rs) throws SQLException, DataAccessException {
-
                         List<Employee> list = new ArrayList<>();
                         while (rs.next()) {
-                            Employee e = new Employee();
-                            e.setId(rs.getInt("employee_id"));
-                            e.setFirstName(rs.getString("employee_firstname"));
-                            e.setMiddleName(rs.getString("employee_middlename"));
-                            e.setLastName(rs.getString("employee_lastname"));
-                            e.setHomeContact(rs.getString("employee_homecontact"));
-                            e.setMobileNumber(rs.getString("employee_mobilecontact"));
-                            e.setDateOfBirth(rs.getString("employee_dateofbirth"));
-                            e.setDateOfJoin(rs.getString("employee_dateofjoin"));
-                            e.setAddressId(rs.getInt("employee_address"));
-                            String post  = rs.getString("employee_post");
-                            e.setPost(EmployeePost.valueOf(post));
-                            list.add(e);
+                            Employee employee = new Employee();
+                            employee.setId(rs.getInt("employee_id"));
+                            employee.setFirstName(rs.getString("employee_firstname"));
+                            employee.setMiddleName(rs.getString("employee_middlename"));
+                            employee.setLastName(rs.getString("employee_lastname"));
+                            employee.setHomeContact(rs.getString("employee_homecontact"));
+                            employee.setMobileNumber(rs.getString("employee_mobilecontact"));
+                            employee.setDateOfBirth(rs.getString("employee_dateofbirth"));
+                            employee.setDateOfJoin(rs.getString("employee_dateofjoin"));
+                            employee.setAddressId(rs.getInt("employee_address"));
+                            String post = rs.getString("employee_post");
+                            employee.setPost(EmployeePost.valueOf(post));
+                            list.add(employee);
                         }
                         return list;
                     }
                 });
-
     }
 
-    public Employee getSpecificEmployee(int empid) {
+    public Employee findById(int empid) {
         return jdbcTemplate.query("SELECT * FROM employee_table WHERE employee_id='" + empid + "'",
                 new ResultSetExtractor<Employee>() {
-
                     @Override
                     public Employee extractData(ResultSet rs) throws SQLException, DataAccessException {
-                        Employee e = new Employee();
+                        Employee employee = new Employee();
                         while (rs.next()) {
-                            e.setId(rs.getInt("employee_id"));
-                            e.setFirstName(rs.getString("employee_firstname"));
-                            e.setMiddleName(rs.getString("employee_middlename"));
-                            e.setLastName(rs.getString("employee_lastname"));
-                            e.setHomeContact(rs.getString("employee_homecontact"));
-                            e.setMobileNumber(rs.getString("employee_mobilecontact"));
-                            e.setDateOfBirth(rs.getString("employee_dateofbirth"));
-                            e.setDateOfJoin(rs.getString("employee_dateofjoin"));
-                            e.setAddressId(rs.getInt("employee_address"));
-                            String post  = rs.getString("employee_post");
-                            e.setPost(EmployeePost.valueOf(post));
+                            employee.setId(rs.getInt("employee_id"));
+                            employee.setFirstName(rs.getString("employee_firstname"));
+                            employee.setMiddleName(rs.getString("employee_middlename"));
+                            employee.setLastName(rs.getString("employee_lastname"));
+                            employee.setHomeContact(rs.getString("employee_homecontact"));
+                            employee.setMobileNumber(rs.getString("employee_mobilecontact"));
+                            employee.setDateOfBirth(rs.getString("employee_dateofbirth"));
+                            employee.setDateOfJoin(rs.getString("employee_dateofjoin"));
+                            employee.setAddressId(rs.getInt("employee_address"));
+                            String post = rs.getString("employee_post");
+                            employee.setPost(EmployeePost.valueOf(post));
                             String department = rs.getString("employee_department");
-                            e.setDepartment(DepartmentEnum.valueOf(department));
+                            employee.setDepartment(DepartmentEnum.valueOf(department));
                             String status = rs.getString("employee_isactive");
-                            e.setStatus(Status.valueOf(status));
+                            employee.setStatus(Status.valueOf(status));
                             String type = rs.getString("employee_isadmin");
-                            e.setType(UserType.valueOf(type));
+                            employee.setType(UserType.valueOf(type));
                         }
-                        return e;
+                        return employee;
                     }
                 });
     }
 
-    public List<Employee> getDeletedEmployees() {
+    public List<Employee> listDeletedEmployees() {
         return jdbcTemplate.query("SELECT * FROM employee_table WHERE employee_isactive='0' ORDER BY employee_firstname ASC",
                 new ResultSetExtractor<List<Employee>>() {
-
                     @Override
                     public List<Employee> extractData(ResultSet rs) throws SQLException, DataAccessException {
-
                         List<Employee> list = new ArrayList<>();
                         while (rs.next()) {
-                            Employee e = new Employee();
-                            e.setFirstName(rs.getString("employee_firstname"));
-                            e.setMiddleName(rs.getString("employee_middlename"));
-                            e.setLastName(rs.getString("employee_lastname"));
-                            e.setHomeContact(rs.getString("employee_homecontact"));
-                            e.setMobileNumber(rs.getString("employee_mobilecontact"));
-                            e.setDateOfBirth(rs.getString("employee_dateofbirth"));
-                            e.setDateOfJoin(rs.getString("employee_dateofjoin"));
-                            e.setAddressId(rs.getInt("employee_address"));
-                            String post  = rs.getString("employee_post");
-                            e.setPost(EmployeePost.valueOf(post));
-                            list.add(e);
+                            Employee employee = new Employee();
+                            employee.setFirstName(rs.getString("employee_firstname"));
+                            employee.setMiddleName(rs.getString("employee_middlename"));
+                            employee.setLastName(rs.getString("employee_lastname"));
+                            employee.setHomeContact(rs.getString("employee_homecontact"));
+                            employee.setMobileNumber(rs.getString("employee_mobilecontact"));
+                            employee.setDateOfBirth(rs.getString("employee_dateofbirth"));
+                            employee.setDateOfJoin(rs.getString("employee_dateofjoin"));
+                            employee.setAddressId(rs.getInt("employee_address"));
+                            String post = rs.getString("employee_post");
+                            employee.setPost(EmployeePost.valueOf(post));
+                            list.add(employee);
                         }
                         return list;
                     }
                 });
-
     }
 
-    public int saveEmployee(Employee e) {
-        String query = "INSERT INTO employee_table(employee_firstname, employee_middlename, employee_lastname, "
-                + "employee_homecontact, employee_mobilecontact, employee_dateofjoin, employee_dateofbirth, "
-                + "employee_department, employee_post, employee_isactive, employee_isadmin) VALUES('" + e.getFirstName() + "','"
-                + e.getMiddleName() + "','" + e.getLastName() + "','" + e.getHomeContact() + "','" + e.getMobileNumber()
-                + "','" + e.getDateOfBirth() + "','" + e.getDateOfJoin() + "','" + e.getDepartment() + "', '"
-                + e.getPost() + "', '" + e.getStatus() + "', '" + e.getType() + "')";
+    public int save(Employee employee) {
+        String query = "INSERT INTO employee_table("
+                + "employee_firstname, "
+                + "employee_middlename, "
+                + "employee_lastname, "
+                + "employee_homecontact, "
+                + "employee_mobilecontact, "
+                + "employee_dateofjoin, "
+                + "employee_dateofbirth, "
+                + "employee_department, "
+                + "employee_post, "
+                + "employee_isactive, "
+                + "employee_isadmin) "
+                + "VALUES('"
+                + employee.getFirstName() + "','"
+                + employee.getMiddleName() + "','"
+                + employee.getLastName() + "','"
+                + employee.getHomeContact() + "','"
+                + employee.getMobileNumber() + "','"
+                + employee.getDateOfBirth() + "','"
+                + employee.getDateOfJoin() + "','"
+                + employee.getDepartment() + "', '"
+                + employee.getPost() + "', '"
+                + employee.getStatus() + "', '"
+                + employee.getType() + "')";
         return jdbcTemplate.update(query);
     }
 
-    public int updateEmployee(Employee e) {
-        String query = "UPDATE employee_table SET employee_firstname='" + e.getFirstName()
-                + "', employee_middlename='" + e.getMiddleName() + "', employee_lastname='" + e.getLastName()
-                + "', employee_homecontact='" + e.getHomeContact() + "', employee_mobilecontact='" + e.getMobileNumber()
-                + "', employee_dateofjoin='" + e.getDateOfJoin() + "', employee_department='" + e.getDepartment()
-                + "', employee_post='" + e.getPost() + "', employee_isadmin='" + e.getType()
-                + "', employee_isactive='" + e.getStatus()
-                + "' where employee_id='" + e.getId() + "'";
+    public int update(Employee employee) {
+        String query = "UPDATE employee_table SET "
+                + "employee_firstname='" + employee.getFirstName() + "', "
+                + "employee_middlename='" + employee.getMiddleName() + "', "
+                + "employee_lastname='" + employee.getLastName() + "', "
+                + "employee_homecontact='" + employee.getHomeContact() + "', "
+                + "employee_mobilecontact='" + employee.getMobileNumber() + "', "
+                + "employee_dateofjoin='" + employee.getDateOfJoin() + "', "
+                + "employee_department='" + employee.getDepartment() + "', "
+                + "employee_post='" + employee.getPost() + "', "
+                + "employee_isadmin='" + employee.getType() + "', "
+                + "employee_isactive='" + employee.getStatus() + "' "
+                + "where "
+                + "employee_id='" + employee.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
-    public int deleteEmployee(Employee e) {
-        String query = "UPDATE employee_table SET employee_isactive='0' WHERE employee_id='" + e.getId() + "'";
+    public int delete(Employee employee) {
+        String query = "UPDATE employee_table SET "
+                + "employee_isactive='0' "
+                + "WHERE "
+                + "employee_id='" + employee.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
-    public int restoreEmployee(Employee e) {
-        String query = "UPDATE employee_table SET employee_isactive='1' WHERE employee_id='" + e.getId() + "'";
+    public int restore(Employee employee) {
+        String query = "UPDATE employee_table SET "
+                + "employee_isactive='1' "
+                + "WHERE "
+                + "employee_id='" + employee.getId() + "'";
         return jdbcTemplate.update(query);
     }
-    
+
 }

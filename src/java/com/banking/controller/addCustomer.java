@@ -2,8 +2,6 @@ package com.banking.controller;
 
 import com.banking.model.Address;
 import com.banking.model.Customer;
-import com.banking.dao.CustomerDao;
-import com.banking.dao.AddressDao;
 import com.sun.org.apache.xerces.internal.util.Status;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -88,10 +86,10 @@ public class addCustomer extends HttpServlet {
         address.setStreetName(street);
         address.setStreetNumber(streetnumber);
         address.setApartmentNumber(apartmentnumber);
-        int saveCustomerAddress = addressController.saveCustomerAddress(address);
+        int saveCustomerAddress = addressController.save(address);
 
         Customer customer = new Customer();
-        Address custAddress = addressController.getCustomerAddressID();
+        Address custAddress = addressController.getAddress();
         customer.setAddressId(custAddress.getId());
         customer.setFirstName(firstname);
         customer.setMiddleName(middlename);
@@ -100,7 +98,7 @@ public class addCustomer extends HttpServlet {
         customer.setDateOfBirth(dateofbirth);
         customer.setDateOfJoin(dateofjoin);
         //customer.setStatus(status);
-        saveCustomerAddress = customerController.saveCustomer(customer);
+        saveCustomerAddress = customerController.save(customer);
         if (saveCustomerAddress > 0) {
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");
         } else {

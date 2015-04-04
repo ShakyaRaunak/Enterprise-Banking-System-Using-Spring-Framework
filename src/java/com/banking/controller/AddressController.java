@@ -28,10 +28,11 @@ public class AddressController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Address getCustomerAddressID() {
-        return jdbcTemplate.query("SELECT address_id FROM customer_address ORDER BY address_id DESC LIMIT 1",
+    public Address getAddress() {
+        return jdbcTemplate.query("SELECT address_id FROM customer_address "
+                + "ORDER BY address_id "
+                + "DESC LIMIT 1",
                 new ResultSetExtractor<Address>() {
-
                     @Override
                     public Address extractData(ResultSet rs) throws SQLException, DataAccessException {
                         Address address = new Address();
@@ -43,10 +44,11 @@ public class AddressController {
                 });
     }
 
-    public Address getSpecificAddress(int addressid) {
-        return jdbcTemplate.query("SELECT * FROM customer_address WHERE address_id='" + addressid + "'",
+    public Address findById(int addressId) {
+        return jdbcTemplate.query("SELECT * FROM customer_address "
+                + "WHERE "
+                + "address_id='" + addressId + "'",
                 new ResultSetExtractor<Address>() {
-
                     @Override
                     public Address extractData(ResultSet rs) throws SQLException, DataAccessException {
                         Address address = new Address();
@@ -60,15 +62,22 @@ public class AddressController {
                 });
     }
 
-    public int saveCustomerAddress(Address address) {
+    public int save(Address address) {
         String query = "INSERT INTO customer_address (city, state, zip_code) VALUES('"
-                + address.getCity() + "', '" + address.getState() + "', '" + address.getZipCode() + "')";
+                + address.getCity() + "', '"
+                + address.getState() + "', '"
+                + address.getZipCode() + "')";
         return jdbcTemplate.update(query);
     }
 
-    public int updateCustomerAddress(Address address) {
-        String query = "UPDATE customer_address SET city='" + address.getCity() + "', state='" + address.getState() + "', zip_code='"
-                + address.getZipCode() + "' WHERE address_id='" + address.getId() + "'";
+    public int update(Address address) {
+        String query = "UPDATE customer_address SET "
+                + "city='" + address.getCity() + "', "
+                + "state='" + address.getState() + "', "
+                + "zip_code='"
+                + address.getZipCode() + "' "
+                + "WHERE "
+                + "address_id='" + address.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
