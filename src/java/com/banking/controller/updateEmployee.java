@@ -75,7 +75,7 @@ public class updateEmployee extends HttpServlet {
         int isadmin = ("active".equals(checkadmin)) ? 1 : 0;
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
-        EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
+        EmployeeController employeeController = (EmployeeController) ctx.getBean("employeeController");
 
         Employee employee = new Employee();
         employee.setId(Integer.parseInt(empid));
@@ -91,7 +91,7 @@ public class updateEmployee extends HttpServlet {
         //employee.setAddress(address);
         //employee.setIsactive(isactive);
         //employee.setIsadmin(isadmin);
-        int status = employeeDao.updateEmployee(employee);
+        int status = employeeController.updateEmployee(employee);
         if (status > 0) {
             response.sendRedirect("EmployeePages/ViewEmployee.jsp");
         } else {

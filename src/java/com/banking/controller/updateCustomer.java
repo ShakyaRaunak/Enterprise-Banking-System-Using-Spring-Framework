@@ -78,12 +78,12 @@ public class updateCustomer extends HttpServlet {
         Boolean isactive = ("active".equals(customerstatus));
         
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
-        CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
-        AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
+        CustomerController customerController = (CustomerController) ctx.getBean("customerController");
+        AddressController addressController = (AddressController) ctx.getBean("addressController");
 
-        Customer specificCustomer = customerDao.getSpecificCustomer(Integer.parseInt(custid));
+        Customer specificCustomer = customerController.getSpecificCustomer(Integer.parseInt(custid));
         int addressid = specificCustomer.getAddressId();
-        Address customerAddress = addressDao.getSpecificAddress(addressid);
+        Address customerAddress = addressController.getSpecificAddress(addressid);
         
         Address address = new Address();
         address.setId(addressid);
@@ -93,7 +93,7 @@ public class updateCustomer extends HttpServlet {
         address.setStreetName(street);
         address.setStreetNumber(streetnumber);
         address.setApartmentNumber(apartmentnumber);
-        int updateCustomerAddress = addressDao.updateCustomerAddress(address);
+        int updateCustomerAddress = addressController.updateCustomerAddress(address);
 
         Customer customer = new Customer();
         customer.setId(Integer.parseInt(custid));
@@ -104,7 +104,7 @@ public class updateCustomer extends HttpServlet {
         customer.setDateOfBirth(dateofbirth);
         customer.setDateOfJoin(dateofjoin);
         //customer.setIsActive(isactive);
-        updateCustomerAddress = customerDao.updateCustomer(customer);
+        updateCustomerAddress = customerController.updateCustomer(customer);
         if (updateCustomerAddress > 0) {
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");
         } else {

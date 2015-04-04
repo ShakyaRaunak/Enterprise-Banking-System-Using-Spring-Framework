@@ -13,15 +13,15 @@
         <property name="dataSource" ref=datasourceds"/>
     </bean>
     
-    <bean id="customerDao" class="com.bsp.bankingsystemproject.CustomerDao">
+    <bean id="customerController" class="com.bsp.bankingsystemproject.CustomerController">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
-    <bean id="employeeDao" class="com.bsp.bankingsystemproject.EmployeeDao">
+    <bean id="employeeController" class="com.bsp.bankingsystemproject.EmployeeController">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
     
-    <bean id="addressDao" class="com.bsp.bankingsystemproject.AddressDao">
+    <bean id="addressController" class="com.bsp.bankingsystemproject.AddressController">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 </beans>

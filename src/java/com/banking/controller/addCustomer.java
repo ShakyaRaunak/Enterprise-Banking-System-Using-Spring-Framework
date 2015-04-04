@@ -78,8 +78,8 @@ public class addCustomer extends HttpServlet {
         Status status = Status.valueOf(customerstatus);
         
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-        CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
-        AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
+        CustomerController customerController = (CustomerController) ctx.getBean("customerController");
+        AddressController addressController = (AddressController) ctx.getBean("addressController");
 
         Address address = new Address();
         address.setZipCode(zipcode);
@@ -88,10 +88,10 @@ public class addCustomer extends HttpServlet {
         address.setStreetName(street);
         address.setStreetNumber(streetnumber);
         address.setApartmentNumber(apartmentnumber);
-        int saveCustomerAddress = addressDao.saveCustomerAddress(address);
+        int saveCustomerAddress = addressController.saveCustomerAddress(address);
 
         Customer customer = new Customer();
-        Address custAddress = addressDao.getCustomerAddressID();
+        Address custAddress = addressController.getCustomerAddressID();
         customer.setAddressId(custAddress.getId());
         customer.setFirstName(firstname);
         customer.setMiddleName(middlename);
@@ -100,7 +100,7 @@ public class addCustomer extends HttpServlet {
         customer.setDateOfBirth(dateofbirth);
         customer.setDateOfJoin(dateofjoin);
         //customer.setStatus(status);
-        saveCustomerAddress = customerDao.saveCustomer(customer);
+        saveCustomerAddress = customerController.saveCustomer(customer);
         if (saveCustomerAddress > 0) {
             response.sendRedirect("CustomerPages/ViewCustomer.jsp");
         } else {

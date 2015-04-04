@@ -85,7 +85,7 @@ public class addEmployee extends HttpServlet {
         }
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-        EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
+        EmployeeController employeeController = (EmployeeController) ctx.getBean("employeeController");
 
         Employee e = new Employee();
         e.setFirstName(firstname);
@@ -100,7 +100,7 @@ public class addEmployee extends HttpServlet {
         //e.setAddress(address);
         //e.setIsactive(isactive);
         //e.setIsadmin(isadmin);
-        int status = employeeDao.saveEmployee(e);
+        int status = employeeController.saveEmployee(e);
         if (status > 0) {
             response.sendRedirect("EmployeePages/ViewEmployee.jsp");
         } else {
