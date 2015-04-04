@@ -4,12 +4,16 @@
     Author     : Raunak Shakya
 --%>
 
-<%@page import="com.bsp.bankingsystemproject.Employee"%>
-<%@page import="com.bsp.bankingsystemproject.EmployeeDao"%>
+<%@page import="com.banking.utils.UserType"%>
+<%@page import="com.banking.utils.Status"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
-<%@page import="org.springframework.context.ApplicationContext"%>
+
+<%@page import="com.banking.model.Employee"%>
+<%@page import="com.banking.controller.EmployeeController"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,34 +29,34 @@
             <%
                 String empid = request.getParameter("eid");
 
-                ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-                EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
-                Employee e = employeeDao.getSpecificEmployee(Integer.parseInt(empid));
+                ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
+                EmployeeController employeeController = (EmployeeController) ctx.getBean("employeeController");
+                Employee employee = employeeController.getSpecificEmployee(Integer.parseInt(empid));
 
             %>
             <form action="../updateEmployee" method="post">
                 <table>
                     <tr>
                         <td>First Name :</td>
-                        <td><input type="text" name="firstname" value="<%= e.getFirstname()%>"/></td>
+                        <td><input type="text" name="firstname" value="<%= employee.getFirstName()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Middle Name :</td>
-                        <td><input type="text" name="middlename" value="<%= e.getMiddlename()%>"/></td>
+                        <td><input type="text" name="middlename" value="<%= employee.getMiddleName()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Last Name :</td>
-                        <td><input type="text" name="lastname" value="<%= e.getLastname()%>"/></td>
+                        <td><input type="text" name="lastname" value="<%= employee.getLastName()%>"/></td>
                     </tr>
                     <tr>
                         <td>Home Contact :</td>
-                        <td><input type="text" name="homecontact" value="<%= e.getHomecontact()%>"/></td>
+                        <td><input type="text" name="homecontact" value="<%= employee.getHomeContact()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Mobile Contact :</td>
-                        <td><input type="text" name="mobilecontact" value="<%= e.getMobilecontact()%>"/></td>
+                        <td><input type="text" name="mobilecontact" value="<%= employee.getMobileNumber()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Current Status :</td>
                         <td>
                             <%
-                                if (e.getIsactive() == 1) {
+                                if (employee.getType()== UserType.ADMIN) {
                             %>
                             <input type="checkbox" name="employeestatus"  value="active" checked/>
                             <%
@@ -65,22 +69,22 @@
                     </tr>
                     <tr>
                         <td>Date of Birth :</td>
-                        <td><input type="text" name="dateofbirth" value="<%= e.getDateofbirth()%>"/></td>
+                        <td><input type="text" name="dateofbirth" value="<%= employee.getDateOfBirth()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Date of Join :</td>
-                        <td><input type="text" name="dateofjoin" value="<%= e.getDateofjoin()%>"/></td>
+                        <td><input type="text" name="dateofjoin" value="<%= employee.getDateOfJoin()%>"/></td>
                     </tr>
                     <tr>
                         <td>Department :</td>
-                        <td><input type="text" name="department" value="<%= e.getDepartment()%>"/></td>
+                        <td><input type="text" name="department" value="<%= employee.getDepartment()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Post :</td>
-                        <td><input type="text" name="post" value="<%= e.getPost()%>"/></td>
+                        <td><input type="text" name="post" value="<%= employee.getPost()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Administrator :</td>
                         <td>
                             <%
-                                if (e.getIsadmin() == 1) {
+                                if (employee.getType() == UserType.ADMIN) {
                             %>
                             <input type="checkbox" name="isadmin" value="active" checked/>
                             <%
@@ -95,7 +99,7 @@
                     <tr>
                         <td style="vertical-align: top;padding-top: 20px;">Address :</td>
                         <td colspan="7">
-                            <textarea name="address" rows="6" cols="28"><%= e.getAddress()%></textarea>
+                            <textarea name="address" rows="6" cols="28"><%= employee.getAddressId()%></textarea>
                         </td>
                     </tr>
                     <tr>

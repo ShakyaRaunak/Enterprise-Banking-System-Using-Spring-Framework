@@ -1,5 +1,6 @@
-package com.banking.controller;
+package com.banking.servlet;
 
+import com.banking.controller.EmployeeController;
 import com.banking.model.Employee;
 import java.io.IOException;
 import javax.servlet.ServletException;

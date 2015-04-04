@@ -4,31 +4,33 @@
     Author     : Raunak Shakya
 --%>
 
+<%@page import="com.sun.org.apache.xerces.internal.util.Status"%>
+
+<%@page import="com.banking.utils.Status" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Employee</title>
-        <link rel="stylesheet" href="../stylesheets/style.css"/>
+        <link rel="stylesheet" href="../stylesheets/app.css"/>
     </head>
     <body>
         <%
-            int userid;
-            boolean admincheck;
             try {
-                userid = Integer.parseInt(session.getAttribute("sessUserID").toString());
-                admincheck = Boolean.parseBoolean(session.getAttribute("sessIsadmin").toString());
+                Integer userId = Integer.parseInt(session.getAttribute("UserId").toString());
+                if (userId == null || !(userId > 0)) {
+                    throw new RuntimeException("Employee id is not valid");
+                }
+                com.banking.utils.Status status = com.banking.utils.Status.valueOf(session.getAttribute("sessIsadmin").toString());
             } catch (Exception e) {
-                userid = 0;
-                admincheck = false;
-            }
-            if (userid == 0 || admincheck == false) {
-                response.sendRedirect("../index.jsp");
+                
+                //response.sendRedirect("../index.jsp");
             }
         %>
 
-        <jsp:include page="../EmployeePages/EmpPagesHeader.jsp"/>
+        <jsp:include page="../employee/header.jsp"/>
 
         <div class="container">
             <h3>Enter new employee information</h3>

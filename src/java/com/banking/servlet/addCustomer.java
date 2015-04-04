@@ -1,7 +1,10 @@
-package com.banking.controller;
+package com.banking.servlet;
 
-import com.banking.model.Customer;
+import com.banking.controller.AddressController;
+import com.banking.controller.CustomerController;
 import com.banking.model.Address;
+import com.banking.model.Customer;
+import com.sun.org.apache.xerces.internal.util.Status;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +17,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Raunak Shakya
  */
-public class updateCustomer extends HttpServlet {
+public class addCustomer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,58 +61,61 @@ public class updateCustomer extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        String custid = request.getParameter("custid");
         String firstname = request.getParameter("firstname");
         String middlename = request.getParameter("middlename");
         String lastname = request.getParameter("lastname");
         String homecontact = request.getParameter("homecontact");
-        String mobilecontact = request.getParameter("mobilecontact");
+        String mobileContact = request.getParameter("mobilecontact");
         String dateofbirth = request.getParameter("dateofbirth");
         String dateofjoin = request.getParameter("dateofjoin");
-        String zipCode = request.getParameter("zipcode");
+        String zipcode = request.getParameter("zipcode");
         String city = request.getParameter("city");
         String state = request.getParameter("state");
         String street = request.getParameter("street");
         String streetnumber = request.getParameter("streetnumber");
         String apartmentnumber = request.getParameter("apartmentnumber");
         String customerstatus = request.getParameter("customerstatus");
-        Boolean isactive = ("active".equals(customerstatus));
+        Status status = Status.valueOf(customerstatus);
         
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
         CustomerController customerController = (CustomerController) ctx.getBean("customerController");
         AddressController addressController = (AddressController) ctx.getBean("addressController");
 
-        Customer specificCustomer = customerController.findById(Integer.parseInt(custid));
-        int addressid = specificCustomer.getAddressId();
-        Address customerAddress = addressController.findById(addressid);
-        
         Address address = new Address();
-        address.setId(addressid);
-        address.setZipCode(zipCode);
+        address.setZipCode(zipcode);
         address.setCity(city);
         address.setState(state);
         address.setStreetName(street);
         address.setStreetNumber(streetnumber);
         address.setApartmentNumber(apartmentnumber);
-        int updateCustomerAddress = addressController.update(address);
-
+        Integer addressSaved = addressController.save(address);
+        if (!(addressSaved > 0)) {
+            throw new RuntimeException("Address could not be saved");
+        }
+        
         Customer customer = new Customer();
-        customer.setId(Integer.parseInt(custid));
+        Address customerAddress = addressController.getAddress();
+        customer.setAddressId(customerAddress.getId());
         customer.setFirstName(firstname);
         customer.setMiddleName(middlename);
         customer.setLastName(lastname);
         customer.setPhone(homecontact);
         customer.setDateOfBirth(dateofbirth);
         customer.setDateOfJoin(dateofjoin);
-        //customer.setIsActive(isactive);
-        updateCustomerAddress = customerController.update(customer);
-        if (updateCustomerAddress > 0) {
-            response.sendRedirect("CustomerPages/ViewCustomer.jsp");
-        } else {
-            response.sendRedirect("error.jsp");
+        //customer.setStatus(status);
+        Integer customerSaved = customerController.save(customer);
+        if (!(customerSaved > 0)) {
+            throw new RuntimeException("Customer could not be saved");
+            //response.sendRedirect("error.jsp");
         }
+        response.sendRedirect("customer/view.jsp");
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

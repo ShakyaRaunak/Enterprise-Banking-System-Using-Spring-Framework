@@ -4,11 +4,13 @@
     Author     : Raunak Shakya
 --%>
 
-<%@page import="java.util.List"%>
-<%@page import="com.bsp.bankingsystemproject.Employee"%>
-<%@page import="com.bsp.bankingsystemproject.EmployeeDao"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="java.util.List"%>
+
+<%@page import="com.banking.model.Employee"%>
+<%@page import="com.banking.controller.EmployeeController"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,8 +20,8 @@
         <link rel="stylesheet" href="../stylesheets/style.css"/>
         <script type="text/javascript" src="../jquery/jquery-1.11.0.js"></script>
         <script type="text/javascript">
-            $("document").ready(function() {
-                $(".deletelink").on("click", function() {
+            $("document").ready(function () {
+                $(".deletelink").on("click", function () {
                     return confirm("Are you sure to delete?");
                 });
             });
@@ -40,7 +42,7 @@
                 response.sendRedirect("../index.jsp");
             }
         %>
-        <jsp:include page="EmpPagesHeader.jsp"/>
+        <jsp:include page="header.jsp"/>
 
         <div class="container">
             <table class="viewtable">
@@ -56,23 +58,23 @@
                     <th>Actions</th>
                         <%
                             ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-                            EmployeeDao employeeDao = (EmployeeDao) ctx.getBean("employeeDao");
-                            List<Employee> emplist = employeeDao.getAllEmployees();
+                            EmployeeController employeeController = (EmployeeController) ctx.getBean("employeeController");
+                            List<Employee> employees = employeeController.list();
 
                             int serialno = 0;
-                            for (Employee emp : emplist) {
+                            for (Employee employee : employees) {
                                 serialno++;
                                 out.print("<tr>");
                                 out.print("<td>" + serialno + "</td>");
-                                out.print("<td>" + emp.getFirstname() + " " + emp.getMiddlename() + " " + emp.getLastname() + "</td>");
-                                out.print("<td>" + emp.getAddress() + "</td>");
-                                out.print("<td>" + emp.getDateofbirth() + "</td>");
-                                out.print("<td>" + emp.getDateofjoin() + "</td>");
-                                out.print("<td>" + emp.getDepartment() + "</td>");
-                                out.print("<td>" + emp.getPost() + "</td>");
-                                out.print("<td>" + emp.getHomecontact() + ", " + emp.getMobilecontact() + "</td>");
-                                out.print("<td><a href='UpdateEmployee.jsp?eid=" + emp.getEmpID() + "'>Edit</a> | "
-                                        + "<a href='DeleteEmployee.jsp?eid=" + emp.getEmpID() + "' class='deletelink'>Delete</a></td>");
+                                out.print("<td>" + employee.getFirstName() + " " + employee.getMiddleName() + " " + employee.getLastName() + "</td>");
+                                out.print("<td>" + employee.getAddressId() + "</td>");
+                                out.print("<td>" + employee.getDateOfBirth() + "</td>");
+                                out.print("<td>" + employee.getDateOfJoin() + "</td>");
+                                out.print("<td>" + employee.getDepartment() + "</td>");
+                                out.print("<td>" + employee.getPost() + "</td>");
+                                out.print("<td>" + employee.getHomeContact() + ", " + employee.getMobileNumber() + "</td>");
+                                out.print("<td><a href='UpdateEmployee.jsp?eid=" + employee.getId() + "'>Edit</a> | "
+                                        + "<a href='DeleteEmployee.jsp?eid=" + employee.getId() + "' class='deletelink'>Delete</a></td>");
                                 out.print("</tr>");
                             }
                         %>

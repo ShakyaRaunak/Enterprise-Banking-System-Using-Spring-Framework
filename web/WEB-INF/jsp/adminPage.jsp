@@ -31,8 +31,8 @@
         <h1>Banking Enterprise System</h1>
         <div id="title_bar">
             <ul>
-                <li><a href="CustomerPages/ViewCustomer.jsp">Customers</a></li>
-                <li><a href="EmployeePages/ViewEmployee.jsp">Employees</a></li>
+                <li><a href="customer/ViewCustomer.jsp">Customers</a></li>
+                <li><a href="employee/ViewEmployee.jsp">Employees</a></li>
                 <li><a href="logout.jsp">Log out</a></li>
             </ul>
             <div class="clear"></div>

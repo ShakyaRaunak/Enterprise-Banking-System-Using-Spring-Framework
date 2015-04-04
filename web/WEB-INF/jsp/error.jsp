@@ -5,16 +5,17 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error Received</title>
+        <title>Error Occurred</title>
         <link rel="stylesheet" href="../stylesheets/app.css"/>
     </head>
     <body>
         <div id="title_bar">
-            Sorry !!! There has occurred an error....<br/>
+            Sorry !!! There occurred an error....<br/>
             <div class="clear"></div>
         </div>
     </body>

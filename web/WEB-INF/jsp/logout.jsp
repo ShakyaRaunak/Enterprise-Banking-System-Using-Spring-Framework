@@ -13,8 +13,8 @@
     </head>
     <body>
         <%
-            HttpSession sess=request.getSession();
-            sess.invalidate();
+            HttpSession httpSession = request.getSession();
+            httpSession.invalidate();
             response.sendRedirect("index.jsp");
         %>
     </body>

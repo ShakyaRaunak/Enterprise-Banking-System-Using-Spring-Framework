@@ -1,6 +1,9 @@
-package com.banking.controller;
+package com.banking.servlet;
 
-import com.banking.model.Employee;
+import com.banking.controller.AddressController;
+import com.banking.controller.CustomerController;
+import com.banking.model.Customer;
+import com.banking.model.Address;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +16,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Raunak Shakya
  */
-public class addEmployee extends HttpServlet {
+public class updateCustomer extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,6 +60,7 @@ public class addEmployee extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
+        String custid = request.getParameter("custid");
         String firstname = request.getParameter("firstname");
         String middlename = request.getParameter("middlename");
         String lastname = request.getParameter("lastname");
@@ -64,58 +68,53 @@ public class addEmployee extends HttpServlet {
         String mobilecontact = request.getParameter("mobilecontact");
         String dateofbirth = request.getParameter("dateofbirth");
         String dateofjoin = request.getParameter("dateofjoin");
-        String address = request.getParameter("address");
-        String department = request.getParameter("department");
-        String post = request.getParameter("post");
-        String employeestatus = request.getParameter("employeestatus");
-        String checkadmin = request.getParameter("isadmin");
-        int isactive;
-        if ("active".equals(employeestatus)) {
-            isactive = 1;
-        } else {
-            isactive = 0;
-        }
+        String zipCode = request.getParameter("zipcode");
+        String city = request.getParameter("city");
+        String state = request.getParameter("state");
+        String street = request.getParameter("street");
+        String streetnumber = request.getParameter("streetnumber");
+        String apartmentnumber = request.getParameter("apartmentnumber");
+        String customerstatus = request.getParameter("customerstatus");
+        Boolean isactive = ("active".equals(customerstatus));
+        
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("com/banking/system/applicationContext.xml");
+        CustomerController customerController = (CustomerController) ctx.getBean("customerController");
+        AddressController addressController = (AddressController) ctx.getBean("addressController");
 
-        int isadmin;
-        if ("active".equals(checkadmin)) {
-            isadmin = 1;
-        } else {
-            isadmin = 0;
-        }
+        Customer specificCustomer = customerController.findById(Integer.parseInt(custid));
+        int addressid = specificCustomer.getAddressId();
+        Address customerAddress = addressController.findById(addressid);
+        
+        Address address = new Address();
+        address.setId(addressid);
+        address.setZipCode(zipCode);
+        address.setCity(city);
+        address.setState(state);
+        address.setStreetName(street);
+        address.setStreetNumber(streetnumber);
+        address.setApartmentNumber(apartmentnumber);
+        int updateCustomerAddress = addressController.update(address);
 
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-        EmployeeController employeeController = (EmployeeController) ctx.getBean("employeeController");
-
-        Employee employee = new Employee();
-        employee.setFirstName(firstname);
-        employee.setMiddleName(middlename);
-        employee.setLastName(lastname);
-        employee.setHomeContact(homecontact);
-        employee.setMobileNumber(mobilecontact);
-        employee.setDateOfBirth(dateofbirth);
-        employee.setDateOfJoin(dateofjoin);
-        //e.setDepartment(department);
-        //e.setPost(post);
-        //e.setAddress(address);
-        //e.setIsactive(isactive);
-        //e.setIsadmin(isadmin);
-        int status = employeeController.save(employee);
-        if (status > 0) {
-            response.sendRedirect("EmployeePages/ViewEmployee.jsp");
+        Customer customer = new Customer();
+        customer.setId(Integer.parseInt(custid));
+        customer.setFirstName(firstname);
+        customer.setMiddleName(middlename);
+        customer.setLastName(lastname);
+        customer.setPhone(homecontact);
+        customer.setDateOfBirth(dateofbirth);
+        customer.setDateOfJoin(dateofjoin);
+        //customer.setIsActive(isactive);
+        updateCustomerAddress = customerController.update(customer);
+        if (updateCustomerAddress > 0) {
+            response.sendRedirect("CustomerPages/ViewCustomer.jsp");
         } else {
             response.sendRedirect("error.jsp");
         }
-
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

@@ -17,7 +17,7 @@
 
         <div class="container">
             <h3>Login to your account</h3>
-            <form action="./loginController" method="post">
+            <form action="../LoginController" method="post">
                 User name : <br/>
                 <input type="text" name="username" autocomplete="off" required/>
                 <br/><br/>

@@ -62,7 +62,7 @@ public class AddressController {
                 });
     }
 
-    public int save(Address address) {
+    public Integer save(Address address) {
         String query = "INSERT INTO customer_address (city, state, zip_code) VALUES('"
                 + address.getCity() + "', '"
                 + address.getState() + "', '"

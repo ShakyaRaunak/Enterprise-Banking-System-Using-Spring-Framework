@@ -17,7 +17,7 @@
 
         <div class="container">
             <div style="padding:20px;">
-                <p>Welcome to the Banking Enterprise System Project....</p>
+                <p>Welcome to the Banking Enterprise System Project</p>
                 <p>This project covers topics such as Java Server Pages, Servlets and Spring Framework.</p>
             </div>
         </div>

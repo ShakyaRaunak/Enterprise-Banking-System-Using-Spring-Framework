@@ -4,15 +4,18 @@
     Author     : Raunak Shakya
 --%>
 
-<%@page import="com.banking.model.Address"%>
-<%@page import="com.banking.utils.AddressDao"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.banking.model.Customer"%>
-<%@page import="java.util.List"%>
-<%@page import="com.banking.utils.CustomerDao"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
+<%@page import="com.banking.model.Customer"%>
+<%@page import="com.banking.model.Address"%>
+<%@page import="com.banking.controller.CustomerController"%>
+<%@page import="com.banking.controller.AddressController"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,7 +46,7 @@
             }
         %>
 
-        <jsp:include page="CustPagesHeader.jsp"/>
+        <jsp:include page="header.jsp"/>
 
         <div class="container">
             <table class="viewtable">
@@ -59,28 +62,28 @@
                     <th>Actions</th>
                         <%
                             ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-                            CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
-                            List<Customer> custlist = customerDao.getAllCustomers();
+                            CustomerController customerController = (CustomerController) ctx.getBean("customerController");
+                            List<Customer> customers = customerController.list();
 
-                            AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
+                            AddressController addressController = (AddressController) ctx.getBean("addressController");
                             int serialno = 0;
-                            for (Customer cust : custlist) {
+                            for (Customer customer : customers) {
                                 serialno++;
                                 out.print("<tr>");
                                 out.print("<td>" + serialno + "</td>");
-                                out.print("<td>" + cust.getFirstName() + " " + cust.getMiddleName() + " " + cust.getLastName() + "</td>");
+                                out.print("<td>" + customer.getFirstName() + " " + customer.getMiddleName() + " " + customer.getLastName() + "</td>");
 
-                                Address custaddr = addressDao.getSpecificAddress(cust.getAddress());
-                                out.print("<td>" + custaddr.getState() + ", " + custaddr.getCity() + "</td>");
+                                Address address = addressController.findById(customer.getAddressId());
+                                out.print("<td>" + address.getState() + ", " + address.getCity() + "</td>");
 
-                                out.print("<td>" + cust.getDateOfBirth() + "</td>");
-                                out.print("<td>" + cust.getDateOfJoin() + "</td>");
+                                out.print("<td>" + customer.getDateOfBirth() + "</td>");
+                                out.print("<td>" + customer.getDateOfJoin() + "</td>");
                                 out.print("<td>" + "" + "</td>");
                                 out.print("<td>" + "" + "</td>");
-                                out.print("<td>" + //cust.getHomeContact() + ", " + cust.getMobileContact() + 
+                                out.print("<td>" + //customer.getHomeContact() + ", " + customer.getMobileContact() + 
                                         "</td>");
-                                out.print("<td><a href='UpdateCustomer.jsp?cid=" + cust.getId() + "'>Edit</a> | "
-                                        + "<a href='DeleteCustomer.jsp?cid=" + cust.getId() + "' onclick='javascript:return confirmdelete();'>Delete</a></td>");
+                                out.print("<td><a href='update.jsp?cid=" + customer.getId() + "'>Edit</a> | "
+                                        + "<a href='delete.jsp?cid=" + customer.getId() + "' onclick='javascript:return confirmdelete();'>Delete</a></td>");
                                 out.print("</tr>");
                             }
                         %>

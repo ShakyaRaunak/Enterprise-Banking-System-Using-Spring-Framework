@@ -83,7 +83,7 @@ public class EmployeeController {
                             String status = rs.getString("employee_isactive");
                             employee.setStatus(Status.valueOf(status));
                             String type = rs.getString("employee_isadmin");
-                            employee.setType(UserType.valueOf(type));
+                            employee.setUserType(UserType.valueOf(type));
                         }
                         return employee;
                     }
@@ -139,7 +139,7 @@ public class EmployeeController {
                 + employee.getDepartment() + "', '"
                 + employee.getPost() + "', '"
                 + employee.getStatus() + "', '"
-                + employee.getType() + "')";
+                + employee.getUserType() + "')";
         return jdbcTemplate.update(query);
     }
 
@@ -153,26 +153,26 @@ public class EmployeeController {
                 + "employee_dateofjoin='" + employee.getDateOfJoin() + "', "
                 + "employee_department='" + employee.getDepartment() + "', "
                 + "employee_post='" + employee.getPost() + "', "
-                + "employee_isadmin='" + employee.getType() + "', "
+                + "employee_isadmin='" + employee.getUserType() + "', "
                 + "employee_isactive='" + employee.getStatus() + "' "
                 + "where "
                 + "employee_id='" + employee.getId() + "'";
         return jdbcTemplate.update(query);
     }
 
-    public int delete(Employee employee) {
+    public int delete(Integer id) {
         String query = "UPDATE employee_table SET "
                 + "employee_isactive='0' "
                 + "WHERE "
-                + "employee_id='" + employee.getId() + "'";
+                + "employee_id='" + id + "'";
         return jdbcTemplate.update(query);
     }
 
-    public int restore(Employee employee) {
+    public int restore(Integer id) {
         String query = "UPDATE employee_table SET "
                 + "employee_isactive='1' "
                 + "WHERE "
-                + "employee_id='" + employee.getId() + "'";
+                + "employee_id='" + id + "'";
         return jdbcTemplate.update(query);
     }
 

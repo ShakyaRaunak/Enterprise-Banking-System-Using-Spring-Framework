@@ -14,22 +14,22 @@
     </head>
     <body>
         <%
-            int userid;
             try {
-                userid = Integer.parseInt(session.getAttribute("sessUserID").toString());
-            } catch (Exception e) {
-                userid=0;
-            }
-            if (userid == 0) {
-                response.sendRedirect("index.jsp");
+                Integer userId = Integer.parseInt(session.getAttribute("sessUserID").toString());
+                if (userId == null || !(userId > 0)) {
+                    //throw new RuntimeException("User id is not valid");
+                    response.sendRedirect("index.jsp");
+                }
+            } catch (Exception exc) {
+                throw new RuntimeException("User id is not valid");
             }
         %>
-        
+
         <h1>Banking Enterprise System</h1>
         <div id="title_bar">
             <ul>
-                <li><a href="CustomerPages/ViewCustomer.jsp">Customers</a></li>
-                <li><a href="logout.jsp">Log out</a></li>
+                <li><a href="../jsp/customer/view.jsp">Customers</a></li>
+                <li><a href="../jsp/logout.jsp">Log out</a></li>
             </ul>
             <div class="clear"></div>
         </div>

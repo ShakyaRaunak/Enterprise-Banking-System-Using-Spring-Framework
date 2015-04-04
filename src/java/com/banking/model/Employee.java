@@ -29,7 +29,7 @@ public class Employee {
     private Integer addressId;
     private DepartmentEnum department;
     private EmployeePost post;
-    private UserType type;
+    private UserType userType;
     private Status status;
 
     public Integer getId() {
@@ -136,12 +136,12 @@ public class Employee {
         this.post = post;
     }
 
-    public UserType getType() {
-        return type;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setType(UserType type) {
-        this.type = type;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     public Status getStatus() {

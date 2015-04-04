@@ -9,10 +9,10 @@
 <h1>Banking Enterprise System</h1>
 <div id="title_bar">
     <ul>
-        <li><a href="ViewEmployee.jsp">View All Employees</a></li>
-        <li><a href="AddEmployee.jsp">Add A New Employee</a></li>
-        <li><a href="ViewDeletedEmployee.jsp">Restore Deleted Employee</a></li>
-        <li><a href="../CustomerPages/ViewCustomer.jsp">Customer Section</a></li>
+        <li><a href="view.jsp">View All Employees</a></li>
+        <li><a href="add.jsp">Add A New Employee</a></li>
+        <li><a href="deleted.jsp">Restore Deleted Employee</a></li>
+        <li><a href="../customer/view.jsp">Customer Section</a></li>
         <li><a href="../logout.jsp">Logout</a></li>
     </ul>
     <div class="clear"></div>

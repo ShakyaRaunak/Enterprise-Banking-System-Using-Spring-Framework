@@ -14,17 +14,17 @@
     </head>
     <body>
         <%
-            int userid;
+            Integer userId;
             try {
-                userid = Integer.parseInt(session.getAttribute("sessUserID").toString());
+                userId = Integer.parseInt(session.getAttribute("sessUserID").toString());
+                if (userId == null || !(userId > 0)) {
+                    response.sendRedirect("../index.jsp");
+                }
             } catch (Exception e) {
-                userid = 0;
-            }
-            if (userid == 0) {
-                response.sendRedirect("../index.jsp");
+                throw new RuntimeException("UserId not valid");
             }
         %>
-        <jsp:include page="CustPagesHeader.jsp"/>
+        <jsp:include page="header.jsp"/>
 
         <div class="container">
             <h3>Enter new customer information</h3>

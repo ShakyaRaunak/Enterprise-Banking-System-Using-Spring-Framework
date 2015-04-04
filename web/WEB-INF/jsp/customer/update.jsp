@@ -4,13 +4,17 @@
     Author     : Raunak Shakya
 --%>
 
-<%@page import="com.banking.model.Address"%>
-<%@page import="com.banking.utils.AddressDao"%>
-<%@page import="com.banking.model.Customer"%>
-<%@page import="com.banking.utils.CustomerDao"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
+
+<%@page import="com.banking.model.Customer"%>
+<%@page import="com.banking.model.Address"%>
+<%@page import="com.banking.controller.CustomerController"%>
+<%@page import="com.banking.controller.AddressController"%>
+<%@page import="com.banking.utils.Status"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,33 +34,37 @@
                 response.sendRedirect("../index.jsp");
             }
         %>
-        
-        <jsp:include page="CustPagesHeader.jsp"/>
+
+        <jsp:include page="header.jsp"/>
 
         <div class="container">
             <h3>Edit the customer information</h3>
+
             <%
-                String custid = request.getParameter("cid");
+                Integer id = Integer.parseInt(request.getParameter("cid"));
+                if (id == null || !(id > 0)) {
+                    throw new RuntimeException("Customer id is not valid");
+                }
 
                 ApplicationContext ctx = new ClassPathXmlApplicationContext("com/bsp/bankingsystemproject/applicationContext.xml");
-                CustomerDao customerDao = (CustomerDao) ctx.getBean("customerDao");
-                AddressDao addressDao = (AddressDao) ctx.getBean("addressDao");
-                
-                Customer c = customerDao.getSpecificCustomer(Integer.parseInt(custid));
-                Address ca = addressDao.getSpecificAddress(c.getId());
+                CustomerController customerController = (CustomerController) ctx.getBean("customerController");
+                AddressController addressController = (AddressController) ctx.getBean("addressController");
 
+                Customer customer = customerController.findById(id);
+                Address address = addressController.findById(customer.getAddressId());
             %>
+
             <form action="../updateCustomer" method="post">
                 <table>
                     <tr>
                         <td>First Name :</td>
-                        <td><input type="text" name="firstname" value="<%= c.getFirstName()%>"/></td>
+                        <td><input type="text" name="firstname" value="<%= customer.getFirstName()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Middle Name :</td>
-                        <td><input type="text" name="middlename" value="<%= c.getMiddleName()%>"/></td>
+                        <td><input type="text" name="middlename" value="<%= customer.getMiddleName()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Last Name :</td>
-                        <td><input type="text" name="lastname" value="<%= c.getLastName()%>"/></td>
+                        <td><input type="text" name="lastname" value="<%= customer.getLastName()%>"/></td>
                     </tr>
                     <tr>
                         <td>Home Contact :</td>
@@ -66,37 +74,37 @@
                         <td><input type="text" name="mobilecontact" value=""/></td>
                         <td>&nbsp;</td>
                         <td>Zip-Code :</td>
-                        <td><input type="text" name="zipcode" value="<%= ca.getZipCode()%>"/></td>
+                        <td><input type="text" name="zipcode" value="<%= address.getZipCode()%>"/></td>
                     </tr>
                     <tr>
                         <td>Date of Birth :</td>
-                        <td><input type="text" name="dateofbirth" value="<%= c.getDateOfBirth()%>"/></td>
+                        <td><input type="text" name="dateofbirth" value="<%= customer.getDateOfBirth()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Date of Join :</td>
-                        <td><input type="text" name="dateofjoin" value="<%= c.getDateOfJoin()%>"/></td>
+                        <td><input type="text" name="dateofjoin" value="<%= customer.getDateOfJoin()%>"/></td>
                     </tr>
                     <tr>
                         <td>City :</td>
-                        <td><input type="text" name="city" value="<%= ca.getCity()%>"/></td>
+                        <td><input type="text" name="city" value="<%= address.getCity()%>"/></td>
                         <td>&nbsp;</td>
                         <td>State :</td>
-                        <td><input type="text" name="state" value="<%= ca.getState()%>"/></td>
+                        <td><input type="text" name="state" value="<%= address.getState()%>"/></td>
                     </tr>
                     <tr>
                         <td>Street :</td>
-                        <td><input type="text" name="street" value="<%= ca.getStreet()%>"/></td>
+                        <td><input type="text" name="street" value="<%= address.getStreetName()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Street No. :</td>
-                        <td><input type="text" name="streetnumber" value="<%= ca.getStreetNumber()%>"/></td>
+                        <td><input type="text" name="streetnumber" value="<%= address.getStreetNumber()%>"/></td>
                         <td>&nbsp;</td>
                         <td>Apartment No. :</td>
-                        <td><input type="text" name="apartmentnumber" value="<%= ca.getApartmentNumber()%>"/></td>
+                        <td><input type="text" name="apartmentnumber" value="<%= address.getApartmentNumber()%>"/></td>
                     </tr>
                     <tr>
                         <td>Current Status :</td>
                         <td>
                             <%
-                                if (c.getIsActive() == true) {
+                                if (customer.getStatus() == Status.ACTIVE) {
                             %>
                             <input type="checkbox" name="customerstatus"  value="active" checked/>
                             <%
@@ -113,7 +121,7 @@
                     </tr>
                     <tr>
                         <td colspan="8" style="text-align: right;">
-                            <input type="hidden" name="custid" value="<%= custid%>"/>
+                            <input type="hidden" name="custid" value="<%= id%>"/>
                             <input type="submit" name="submit" value="Update this customer" class="button"/>&nbsp;&nbsp;
                             <input type="reset" name="cancel" value="Forget this update" class="button"/>
                         </td>

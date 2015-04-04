@@ -139,19 +139,19 @@ public class CustomerController {
         return jdbcTemplate.update(query);
     }
 
-    public int delete(Customer customer) {
+    public int delete(Integer id) {
         String query = "UPDATE customer_table SET "
                 + "customer_isactive='0' "
                 + "WHERE "
-                + "customer_id='" + customer.getId() + "'";
+                + "customer_id='" + id + "'";
         return jdbcTemplate.update(query);
     }
 
-    public int restore(Customer customer) {
+    public int restore(Integer id) {
         String query = "UPDATE customer_table SET "
                 + "customer_isactive='1' "
                 + "WHERE "
-                + "customer_id='" + customer.getId() + "'";
+                + "customer_id='" + id + "'";
         return jdbcTemplate.update(query);
     }
 
