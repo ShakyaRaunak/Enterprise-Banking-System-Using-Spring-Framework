@@ -24,7 +24,7 @@
                 throw new RuntimeException("UserId not valid");
             }
         %>
-        <jsp:include page="header.jsp"/>
+        <jsp:include page="../customer/header.jsp"/>
 
         <div class="container">
             <h3>Enter new customer information</h3>

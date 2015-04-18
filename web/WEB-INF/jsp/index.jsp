@@ -13,8 +13,18 @@
         <link rel="stylesheet" type="text/css" href="../stylesheets/app.css"/>
     </head>
     <body>
-        <jsp:include page="../jsp/includes/main.jsp"/>
-
+        <h1>Banking Enterprise System</h1>
+        <div class="title_bar">
+            <ul>
+                <li><a href="${pageContext.servletContext.contextPath}/index.jsp">Home</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/index.jsp">About</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/index.jsp">Services</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/index.jsp">Career</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/index.jsp">Contact</a></li>
+                <li><a href="${pageContext.servletContext.contextPath}/login.jsp">Log in</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
         <div class="container">
             <div style="padding:20px;">
                 <p>Welcome to the Banking Enterprise System Project</p>

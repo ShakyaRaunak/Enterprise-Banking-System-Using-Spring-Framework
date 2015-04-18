@@ -35,7 +35,7 @@
             }
         %>
 
-        <jsp:include page="header.jsp"/>
+        <jsp:include page="../customer/header.jsp"/>
 
         <div class="container">
             <table class="viewtable">

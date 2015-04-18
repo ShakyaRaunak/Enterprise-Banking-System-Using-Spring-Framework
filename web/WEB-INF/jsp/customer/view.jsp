@@ -4,6 +4,7 @@
     Author     : Raunak Shakya
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="java.util.ArrayList"%>
@@ -46,7 +47,7 @@
             }
         %>
 
-        <jsp:include page="header.jsp"/>
+        <jsp:include page="../customer/header.jsp"/>
 
         <div class="container">
             <table class="viewtable">
@@ -87,6 +88,10 @@
                                 out.print("</tr>");
                             }
                         %>
+                    
+                    <c:forEach var="a" begin="1" end="5">
+                        
+                    </c:forEach>   
                 </tr>
             </table>
         </div>
